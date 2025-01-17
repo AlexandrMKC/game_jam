@@ -14,4 +14,4 @@ transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 [node name="space" parent="world" instance=ExtResource("2_gcoll")]
 
 [node name="Star" parent="world" instance=ExtResource("3_5lbid")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -585, 0, 86)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -175.603, -49.5466, 86)
