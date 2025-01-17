@@ -2,6 +2,9 @@
 
 [sub_resource type="Environment" id="Environment_qnc3y"]
 background_mode = 1
+background_color = Color(0.0295066, 0.0295066, 0.0295066, 1)
+ambient_light_source = 2
+ambient_light_energy = 0.0
 
 [node name="Space" type="Node3D"]
 
