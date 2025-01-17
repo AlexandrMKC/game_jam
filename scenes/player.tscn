@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://vyrwgd2taex0"]
+
+[ext_resource type="PackedScene" uid="uid://covww25y3n676" path="res://models/robot.gltf" id="1_h8jyn"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_meh52"]
+
+[node name="Player" type="Node3D"]
+script = ExtResource("1_meh52")
+
+[node name="robot" parent="." instance=ExtResource("1_h8jyn")]
