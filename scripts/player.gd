@@ -34,7 +34,12 @@ var _main_movement : Vector3 = Vector3.ZERO
 
 var _rotation_input : Vector2 = Vector2.ZERO
 var _player_rotation : Vector3 = Vector3.ZERO
-var _camera_rotation : Vector3 = Vector3.ZERO
+var _camera_rotation : Vector3 = Vector3.ZERO:
+	get:
+		return _camera_rotation
+	set(value):
+		_camera_rotation = value
+		_camera_rotation.x = clamp(_camera_rotation.x, TILT_LOWER_LIMIT, TILT_UPPER_LIMIT)
 
 func _physics_process(delta: float) -> void:
 	update_camera(delta)
