@@ -1,44 +1,68 @@
-extends CharacterBody3D
+class_name Player extends CharacterBody3D
 
+@export_group("Input")
 @export
-var MOUSE_SENSITIVITY = 0.3
+var MOUSE_SENSITIVITY : float = 0.3
 
-@export 
-var BASE_SPEED = 5.0
-@export 
-var ACCELERATION = 5.0
-@export 
-var DECELERATION = 5.0
+@export_group("Tilt Parameters", "TILT_")
+@export_range(-90, 90, 0.001, "degrees")
+var TILT_UPPER_LIMIT : float = 90:
+	get:
+		return deg_to_rad(TILT_UPPER_LIMIT)
+	set(value):
+		TILT_UPPER_LIMIT = value
+@export_range(-90, 90, 0.001, "degrees")
+var TILT_LOWER_LIMIT : float = -90:
+	get:
+		return deg_to_rad(TILT_LOWER_LIMIT)
+	set(value):
+		TILT_LOWER_LIMIT = value
 
-var _mainMovement : Vector3 = Vector3.ZERO
-var _rotationInput : Vector2 = Vector2.ZERO
-var _playerRotation : Vector3 = Vector3.ZERO
+@export_group("Speed Parameters")
+@export 
+var BASE_SPEED : float = 10.0
+@export 
+var ACCELERATION : float = 5.0
+@export 
+var DECELERATION : float = 5.0
+
+@export_group("")
+@onready
+var CAMERA_CONTROLLER : Node3D = get_node("CameraController")
+
+var _main_movement : Vector3 = Vector3.ZERO
+
+var _rotation_input : Vector2 = Vector2.ZERO
+var _player_rotation : Vector3 = Vector3.ZERO
+var _camera_rotation : Vector3 = Vector3.ZERO
 
 func _physics_process(delta: float) -> void:
 	update_camera(delta)
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
+
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if direction:
-		_mainMovement = _mainMovement.lerp(direction * BASE_SPEED, ACCELERATION * delta);
+		_main_movement = _main_movement.lerp(direction * BASE_SPEED, ACCELERATION * delta);
 	else:
-		_mainMovement = _mainMovement.lerp(Vector3.ZERO, DECELERATION * delta)
+		_main_movement = _main_movement.lerp(Vector3.ZERO, DECELERATION * delta)
 
 
-	velocity = _mainMovement
+	velocity = _main_movement
 	move_and_slide()
 
 
 func update_camera(delta: float) -> void:
-	_playerRotation.y += _rotationInput.x * delta
+	_player_rotation.y += _rotation_input.x * delta
+	_camera_rotation.x = clamp(_camera_rotation.x + _rotation_input.y * delta, TILT_LOWER_LIMIT, TILT_UPPER_LIMIT) 
 	
-	global_transform.basis = Basis.from_euler(_playerRotation)
+	global_transform.basis = Basis.from_euler(_player_rotation)
+	CAMERA_CONTROLLER.transform.basis = Basis.from_euler(_camera_rotation)
+	CAMERA_CONTROLLER.rotation.z = 0
 	
-	_rotationInput = Vector2.ZERO
+	_rotation_input = Vector2.ZERO
 	
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		_rotationInput = -event.relative * MOUSE_SENSITIVITY
+		_rotation_input = -event.relative * MOUSE_SENSITIVITY
