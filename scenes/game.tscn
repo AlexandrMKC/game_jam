@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvksxwjbv15cn"]
+[gd_scene load_steps=5 format=3 uid="uid://dvksxwjbv15cn"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_2my3a"]
 [ext_resource type="PackedScene" uid="uid://vyrwgd2taex0" path="res://scenes/player.tscn" id="1_2ua3r"]
 [ext_resource type="PackedScene" uid="uid://cdly2weo4fv4s" path="res://locations/test_plane.tscn" id="3_odlpu"]
+
+[sub_resource type="Environment" id="Environment_fhux8"]
+background_mode = 1
+background_color = Color(0.388922, 0.522479, 0.777093, 1)
+background_energy_multiplier = 1.16
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_2my3a")
@@ -13,3 +18,6 @@ script = ExtResource("1_2my3a")
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 30, 0)
 
 [node name="TestPlane" parent="world" instance=ExtResource("3_odlpu")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="world"]
+environment = SubResource("Environment_fhux8")
