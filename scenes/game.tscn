@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvksxwjbv15cn"]
+[gd_scene load_steps=4 format=3 uid="uid://dvksxwjbv15cn"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_2my3a"]
 [ext_resource type="PackedScene" uid="uid://vyrwgd2taex0" path="res://scenes/player.tscn" id="1_2ua3r"]
-[ext_resource type="PackedScene" uid="uid://mbr22ogbet8f" path="res://locations/space.tscn" id="2_gcoll"]
-[ext_resource type="PackedScene" uid="uid://w2dtw4s08cjq" path="res://locations/star.tscn" id="3_5lbid"]
+[ext_resource type="PackedScene" uid="uid://cdly2weo4fv4s" path="res://locations/test_plane.tscn" id="3_odlpu"]
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_2my3a")
@@ -11,9 +10,6 @@ script = ExtResource("1_2my3a")
 [node name="world" type="Node3D" parent="."]
 
 [node name="Player" parent="world" instance=ExtResource("1_2ua3r")]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 30, 0)
 
-[node name="space" parent="world" instance=ExtResource("2_gcoll")]
-
-[node name="Star" parent="world" instance=ExtResource("3_5lbid")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.0182, -11.9162, 14.7486)
+[node name="TestPlane" parent="world" instance=ExtResource("3_odlpu")]
