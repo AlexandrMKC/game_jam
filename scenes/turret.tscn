@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dawcj88u8xawr"]
+
+[ext_resource type="Script" path="res://scripts/Weapons/turret.gd" id="1_g7fw4"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_7vatr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dekxe"]
+size = Vector3(0.2, 0.2, 1.5)
+
+[node name="Weapon" type="Node3D"]
+script = ExtResource("1_g7fw4")
+
+[node name="Base" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_7vatr")
+skeleton = NodePath("")
+
+[node name="GunBarrel" type="MeshInstance3D" parent="Base"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.75)
+mesh = SubResource("BoxMesh_dekxe")

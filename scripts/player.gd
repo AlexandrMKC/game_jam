@@ -27,8 +27,12 @@ var ACCELERATION : float = 5.0
 var DECELERATION : float = 5.0
 
 @export_group("")
+@export
+var WEAPONRY: Weapon
 @onready
 var CAMERA_CONTROLLER : Node3D = get_node("CameraController")
+
+#signal rotate_turret_to(position: Vector3)
 
 var _main_movement : Vector3 = Vector3.ZERO
 
@@ -42,7 +46,7 @@ var _camera_rotation : Vector3 = Vector3.ZERO:
 		_camera_rotation.x = clamp(_camera_rotation.x, TILT_LOWER_LIMIT, TILT_UPPER_LIMIT)
 
 func _physics_process(delta: float) -> void:
-	update_camera(delta)
+	UpdateCamera(delta)
 
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -52,18 +56,18 @@ func _physics_process(delta: float) -> void:
 	else:
 		_main_movement = _main_movement.lerp(Vector3.ZERO, DECELERATION * delta)
 
+	
 
 	velocity = _main_movement
 	move_and_slide()
 
 
-func update_camera(delta: float) -> void:
+func UpdateCamera(delta: float) -> void:
 	_player_rotation.y += _rotation_input.x * delta
 	_camera_rotation.x = clamp(_camera_rotation.x + _rotation_input.y * delta, TILT_LOWER_LIMIT, TILT_UPPER_LIMIT) 
 	
 	global_transform.basis = Basis.from_euler(_player_rotation)
 	CAMERA_CONTROLLER.transform.basis = Basis.from_euler(_camera_rotation)
-	CAMERA_CONTROLLER.rotation.z = 0
 	
 	_rotation_input = Vector2.ZERO
 	
@@ -71,3 +75,6 @@ func update_camera(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		_rotation_input = -event.relative * MOUSE_SENSITIVITY
+	
+	if event.is_action_pressed("shoot"):
+		WEAPONRY._Shoot()

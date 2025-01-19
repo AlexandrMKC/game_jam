@@ -1,17 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://vyrwgd2taex0"]
+[gd_scene load_steps=5 format=3 uid="uid://vyrwgd2taex0"]
 
 [ext_resource type="PackedScene" uid="uid://covww25y3n676" path="res://models/robot.gltf" id="1_h8jyn"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_u5n7m"]
+[ext_resource type="PackedScene" uid="uid://dawcj88u8xawr" path="res://scenes/turret.tscn" id="3_t1l53"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_442m3"]
 size = Vector3(9, 1, 4)
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
+[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("WEAPONRY")]
 script = ExtResource("1_u5n7m")
 TILT_UPPER_LIMIT = -45.0
+WEAPONRY = NodePath("PlayerMesh/Turret")
 
 [node name="PlayerMesh" parent="." instance=ExtResource("1_h8jyn")]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, 0, 0)
+
+[node name="Turret" parent="PlayerMesh" instance=ExtResource("3_t1l53")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
