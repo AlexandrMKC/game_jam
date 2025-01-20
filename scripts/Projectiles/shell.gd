@@ -2,16 +2,14 @@ class_name Shell
 extends Node3D
 
 @export
-var SPEED: float = 40
+var SPEED: float = 100
 
 @onready
 var MESH = $MeshInstance3D
-
 @onready
 var RAYCAST = $RayCast3D
-
 @onready
-var DESTRUCT_TIMER = $Timer
+var DESTRUCT_TIMER = $DestructTimer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

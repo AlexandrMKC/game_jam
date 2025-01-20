@@ -57,7 +57,7 @@ func _physics_process(delta: float) -> void:
 	
 
 func _RotateTo(position: Vector3):
-	pass
+	look_at(position)
 
 func _Shoot() -> void:
 	instance = shell_class.instantiate()

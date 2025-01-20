@@ -1,4 +1,10 @@
 class_name Player extends CharacterBody3D
+@export_category("Mouse Raycast")
+
+@export_flags_3d_physics
+var RAYCAST_COLLISION_MASK : int = 2
+@export
+var RAYCAST_RANGE : float = 512
 
 @export_group("Input")
 @export
@@ -28,9 +34,11 @@ var DECELERATION : float = 5.0
 
 @export_group("")
 @export
-var WEAPONRY: Weapon
+var WEAPONRY : Weapon
 @onready
 var CAMERA_CONTROLLER : Node3D = get_node("CameraController")
+@onready
+var CAMERA : Camera3D = $CameraController/Camera3D
 
 #signal rotate_turret_to(position: Vector3)
 
@@ -55,13 +63,21 @@ func _physics_process(delta: float) -> void:
 		_main_movement = _main_movement.lerp(direction * BASE_SPEED, ACCELERATION * delta);
 	else:
 		_main_movement = _main_movement.lerp(Vector3.ZERO, DECELERATION * delta)
-
-	
+	var player_points_to = RaycastFromMouse()
+	if player_points_to != Vector3.ZERO:
+		WEAPONRY._RotateTo(player_points_to)
 
 	velocity = _main_movement
 	move_and_slide()
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		_rotation_input = -event.relative * MOUSE_SENSITIVITY
+	
+	if event.is_action_pressed("shoot"):
+		WEAPONRY._Shoot()
 
+		
 func UpdateCamera(delta: float) -> void:
 	_player_rotation.y += _rotation_input.x * delta
 	_camera_rotation.x = clamp(_camera_rotation.x + _rotation_input.y * delta, TILT_LOWER_LIMIT, TILT_UPPER_LIMIT) 
@@ -71,10 +87,13 @@ func UpdateCamera(delta: float) -> void:
 	
 	_rotation_input = Vector2.ZERO
 	
-	
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		_rotation_input = -event.relative * MOUSE_SENSITIVITY
-	
-	if event.is_action_pressed("shoot"):
-		WEAPONRY._Shoot()
+func RaycastFromMouse() -> Vector3:
+	var space = get_world_3d().direct_space_state
+	var mouse_position = get_viewport().get_mouse_position()
+	var from = CAMERA.project_ray_origin(mouse_position)
+	var to = from + CAMERA.project_ray_normal(mouse_position) * RAYCAST_RANGE
+	var query = PhysicsRayQueryParameters3D.create(from, to, RAYCAST_COLLISION_MASK)
+	var collision = space.intersect_ray(query)
+	if collision:
+		return collision["position"]
+	return Vector3.ZERO

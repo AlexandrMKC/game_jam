@@ -57,6 +57,10 @@ shoot={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_2="Player Hits"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

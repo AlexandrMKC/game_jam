@@ -9,7 +9,9 @@ size = Vector3(9, 1, 4)
 
 [node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("WEAPONRY")]
 script = ExtResource("1_u5n7m")
-TILT_UPPER_LIMIT = -45.0
+TILT_UPPER_LIMIT = 0.0
+BASE_SPEED = 20.0
+DECELERATION = 2.0
 WEAPONRY = NodePath("PlayerMesh/Turret")
 
 [node name="PlayerMesh" parent="." instance=ExtResource("1_h8jyn")]

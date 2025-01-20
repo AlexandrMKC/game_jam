@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_2my3a"]
 [ext_resource type="PackedScene" uid="uid://vyrwgd2taex0" path="res://scenes/player.tscn" id="1_2ua3r"]
-[ext_resource type="PackedScene" path="res://locations/location1.tscn" id="3_g36vp"]
+[ext_resource type="PackedScene" uid="uid://b5tc51obi0kks" path="res://locations/location_1.tscn" id="3_787oh"]
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_2my3a")
@@ -10,6 +10,6 @@ script = ExtResource("1_2my3a")
 [node name="world" type="Node3D" parent="."]
 
 [node name="Player" parent="world" instance=ExtResource("1_2ua3r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 
-[node name="Location1" parent="world" instance=ExtResource("3_g36vp")]
+[node name="location1" parent="." instance=ExtResource("3_787oh")]
