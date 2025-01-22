@@ -2,7 +2,10 @@ class_name Turret
 extends Weapon
 
 @export
-var ROTATION_SPEED: float = 0.3
+var SHELL_DAMAGE : float = 20
+
+@export
+var ROTATION_SPEED: float = 5
 
 @export_group("Horizontal Limits", "HORIZONTAL_")
 @export_range(-180, 180, 0.001, "degrees")
@@ -37,30 +40,40 @@ var TURRET_BASE: MeshInstance3D = get_node("Base")
 @onready
 var BARREL: MeshInstance3D = get_node("Base/GunBarrel")
 
-var _rotation_requested: bool = false
-var _horizonal_rotation: float
-var _vertical_rotation: float
+#var _horizonal_rotation: float = 0
+#var _vertical_rotation: float = 0
+var _last_position: Vector3
 
 @onready
 var shell_class: Resource = load("res://scenes/shell.tscn")
-var instance: Shell
+var shell_instance: Shell
 
 func _ready() -> void:
-	pass # Replace with function body.
+	if !TURRET_BASE:
+		push_error("Missing Turret base!")
+	if !BARREL:
+		push_error("Missing Turret barrel!")
+	if !shell_class:
+		push_error("Missing shell class script!")
 
 func _process(delta: float) -> void:
 	pass
-	
-func _physics_process(delta: float) -> void:
-	if !_rotation_requested:
-		return
-	
 
-func _RotateTo(position: Vector3):
-	look_at(position)
+func _RotateTo(delta: float, target_position: Vector3 = _last_position):
+	#var direction = (global_position - position).normalized()
+	#_horizonal_rotation = clamp(atan2(direction.x, direction.z), HORIZONTAL_LEFT_ROTATION_LIMIT, HORIZONTAL_RIGHT_ROTATION_LIMIT) * delta
+	#_vertical_rotation = clamp(atan2(direction.y, direction.z * direction.z + direction.x * direction.x), VERTICAL_LOWER_ROTATION_LIMIT, VERTICAL_UPPER_ROTATION_LIMIT) * delta
+	#TURRET_BASE.transform.basis = Basis.from_euler(Vector3(0, _horizonal_rotation, 0))
+	#BARREL.transform.basis = Basis.from_euler(Vector3(_vertical_rotation, 0, 0))
+	var new_transform = TURRET_BASE.global_transform.looking_at(target_position)
+	TURRET_BASE.global_transform = TURRET_BASE.global_transform.interpolate_with(new_transform, ROTATION_SPEED * delta)
+	TURRET_BASE.scale = Vector3(1, 1, 1)
+	_last_position = target_position
 
 func _Shoot() -> void:
-	instance = shell_class.instantiate()
-	instance.position = BARREL.global_position
-	instance.transform.basis = BARREL.global_transform.basis
-	get_tree().root.add_child(instance)
+	shell_instance = shell_class.instantiate()
+	shell_instance.shell_damage = SHELL_DAMAGE
+	shell_instance.position = BARREL.global_position
+	shell_instance.transform.basis = BARREL.global_transform.basis
+	get_tree().root.add_child(shell_instance)
+	#TODO - add effects, sound
