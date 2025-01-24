@@ -2,7 +2,9 @@ class_name Shell
 extends Node3D
 
 @export
-var SPEED: float = 40
+var SPEED : float = 40
+@export
+var SHELL_DAMAGE : float = 20
 
 @export
 var RAYCAST_DISTANCE: float = -0.7 # forward
@@ -16,8 +18,6 @@ var DESTRUCT_TIMER = $DestructTimer
 
 var _base_speed : float = 40
 
-var shell_damage : float = 0
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,9 +27,7 @@ func _ready() -> void:
 		push_error("Missing shell Raycast!")
 	if !DESTRUCT_TIMER:
 		push_error("Missing shell Destruct timer!")
-		
-	if !shell_damage:
-		push_warning("Shell damage is zero, possibly was not set in weapon!")
+
 	scale = Vector3(1, 1, 1)
 	
 	RAYCAST.target_position.z = RAYCAST_DISTANCE * SPEED / _base_speed
@@ -41,11 +39,12 @@ func _physics_process(delta: float) -> void:
 	if RAYCAST.is_colliding():
 		MESH.visible = false
 		# maybe bad
-		var collider = RAYCAST.get_collider().get_parent() as Building
-		if collider:
-			collider.HEALTH_COMPONENT.TakeDamage(shell_damage)
+		var collider = RAYCAST.get_collider()
+		if !"HEALTH_COMPONENT" in collider:
+			collider = collider.get_parent()
+		elif "HEALTH_COMPONENT" in collider:
+			collider.HEALTH_COMPONENT.TakeDamage(SHELL_DAMAGE)
 		#TODO - add effects, sound
-		print("hit")
 		queue_free()
 
 func _on_timer_timeout() -> void:

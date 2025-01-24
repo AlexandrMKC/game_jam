@@ -8,7 +8,7 @@ var HEALTH_COMPONENT : HealthComponent
 
 @export_category("Mouse Raycast")
 @export_flags_3d_physics
-var RAYCAST_COLLISION_MASK : int = 2
+var RAYCAST_COLLISION_MASK : int = 1
 @export
 var RAYCAST_RANGE : float = 512
 
@@ -48,9 +48,10 @@ var MINIMUM_HEIGHT : float = 10.0
 @export
 var MAXIMUM_HEIGHT : float = 50.0
 
-
 @onready
-var CAMERA_CONTROLLER : Node3D = get_node("CameraController")
+var PlAYER_MESH : Node3D = $Robot
+@onready
+var CAMERA_CONTROLLER : Node3D = $CameraController
 @onready
 var CAMERA : Camera3D = $CameraController/Camera3D
 
@@ -69,20 +70,28 @@ var _camera_rotation : Vector3 = Vector3.ZERO:
 func _ready():
 	if !HEALTH_COMPONENT:
 		push_error("Missing Health component!")
+		return
 		
 	if !WEAPONRY:
 		push_error("Missing Weaponry!")
 		
+	if !PlAYER_MESH:
+		push_error("Missing Player mesh!")
+
 	if !CAMERA:
 		push_error("Missing Camera!")
 		
 	if !CAMERA_CONTROLLER:
 		push_error("Missing Camera controller!")
+	HEALTH_COMPONENT.health_depleted.connect(_on_health_component_health_depleted)
 	
-
 func _physics_process(delta: float) -> void:
 	UpdateCamera(delta)
-
+	
+	var player_points_to := RaycastFromMouse()
+	if player_points_to != Vector3.ZERO:
+		WEAPONRY._RotateTo(delta, player_points_to)
+		
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
@@ -90,23 +99,18 @@ func _physics_process(delta: float) -> void:
 		_main_movement = _main_movement.lerp(direction * BASE_SPEED, ACCELERATION * delta);
 	else:
 		_main_movement = _main_movement.lerp(Vector3.ZERO, DECELERATION * delta)
-		
-	if Input.is_action_pressed("move_up"):
-		_vertical_movement = lerp(_vertical_movement, VERTICAL_SPEED, VERTICAL_ACCELERATION * delta)
-	elif Input.is_action_pressed("move_down"):
-		_vertical_movement = lerp(_vertical_movement, -VERTICAL_SPEED, VERTICAL_ACCELERATION * delta)
+
+	var vertical_direction := Input.get_axis("move_down", "move_up")
+	if vertical_direction:
+		_vertical_movement = lerp(_vertical_movement, vertical_direction * VERTICAL_SPEED, VERTICAL_ACCELERATION * delta)
 	else:
 		_vertical_movement = lerp(_vertical_movement, 0.0, VERTICAL_DECELERATION * delta)
-	
-	var player_points_to = RaycastFromMouse()
-	if player_points_to != Vector3.ZERO:
-		WEAPONRY._RotateTo(delta, player_points_to)
+
+	position.y = clamp(position.y, MINIMUM_HEIGHT, MAXIMUM_HEIGHT)
 
 	velocity = _main_movement + Vector3(0, _vertical_movement, 0)
 	move_and_slide()
 	
-	position.y = clamp(position.y, MINIMUM_HEIGHT, MAXIMUM_HEIGHT)
-
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		_rotation_input = -event.relative * MOUSE_SENSITIVITY
@@ -114,7 +118,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
 		WEAPONRY._Shoot()
 
-		
+func _on_health_component_health_depleted() -> void:
+	print("You died!")
+	#TODO - change to actual stuff
+
 func UpdateCamera(delta: float) -> void:
 	_player_rotation.y += _rotation_input.x * delta
 	_camera_rotation.x = clamp(_camera_rotation.x + _rotation_input.y * delta, TILT_LOWER_LIMIT, TILT_UPPER_LIMIT)
@@ -134,8 +141,3 @@ func RaycastFromMouse() -> Vector3:
 	if collision:
 		return collision["position"]
 	return Vector3.ZERO
-
-
-func _on_health_component_health_depleted() -> void:
-	print("You died!")
-	#TODO - change to actual stuff

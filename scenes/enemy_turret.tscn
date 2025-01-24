@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxjt12mbnuy81"]
+
+[ext_resource type="PackedScene" uid="uid://dawcj88u8xawr" path="res://scenes/turret.tscn" id="1_182t2"]
+[ext_resource type="Script" path="res://scenes/EnemyTurret.gd" id="1_p5irv"]
+[ext_resource type="Script" path="res://scripts/Components/HealthComponent.gd" id="2_3ku24"]
+
+[sub_resource type="Resource" id="Resource_yvio1"]
+script = ExtResource("2_3ku24")
+TOTAL_HEALTH = 50.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tttca"]
+
+[node name="EnemyTurret" type="Node3D"]
+script = ExtResource("1_p5irv")
+HEALTH_COMPONENT = SubResource("Resource_yvio1")
+
+[node name="Weapon" parent="." instance=ExtResource("1_182t2")]
+SHELL_DAMAGE_OVERRIDE = 30.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("SphereShape3D_tttca")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 3.0

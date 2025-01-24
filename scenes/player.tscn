@@ -1,36 +1,38 @@
 [gd_scene load_steps=7 format=3 uid="uid://vyrwgd2taex0"]
 
-[ext_resource type="PackedScene" uid="uid://covww25y3n676" path="res://models/robot.gltf" id="1_h8jyn"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_u5n7m"]
 [ext_resource type="Script" path="res://scripts/Components/HealthComponent.gd" id="2_sbnu8"]
+[ext_resource type="PackedScene" uid="uid://dm2b54qhcq1r0" path="res://models/robot.tscn" id="3_sosrw"]
 [ext_resource type="PackedScene" uid="uid://dawcj88u8xawr" path="res://scenes/turret.tscn" id="3_t1l53"]
 
 [sub_resource type="Resource" id="Resource_eisdi"]
 script = ExtResource("2_sbnu8")
 TOTAL_HEALTH = 100.0
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_442m3"]
-size = Vector3(9, 1, 4)
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_758q8"]
+data = PackedVector3Array(-0.5, 0, 0.5, 0.5, 0, -0.5, -0.5, 0, -0.5, -0.5, 0, 0.5, 0.5, 0, 0.5, 0.5, 0, -0.5, -0.25, 1, -0.9, -0.75, 4, -0.9, -0.75, 1, -0.9, -0.25, 1, -0.9, -0.25, 4, -0.9, -0.75, 4, -0.9, 0.5, 0, 0.5, 0.75, 1, -0.9, 0.5, 0, -0.5, 0.5, 0, 0.5, 0.75, 1, 0.9, 0.75, 1, -0.9, -0.5, 0, -0.5, -0.75, 1, 0.9, -0.5, 0, 0.5, -0.5, 0, -0.5, -0.75, 1, -0.9, -0.75, 1, 0.9, 0.75, 1, -0.9, -0.5, 0, -0.5, 0.5, 0, -0.5, -0.5, 0, -0.5, -0.25, 1, -0.9, -0.75, 1, -0.9, 0.25, 1, -0.9, -0.5, 0, -0.5, 0.75, 1, -0.9, -0.5, 0, -0.5, 0.25, 1, -0.9, -0.25, 1, -0.9, -0.75, 1, 0.9, 0.5, 0, 0.5, -0.5, 0, 0.5, 0.5, 0, 0.5, 0.25, 1, 0.9, 0.75, 1, 0.9, -0.25, 1, 0.9, 0.5, 0, 0.5, -0.75, 1, 0.9, 0.5, 0, 0.5, -0.25, 1, 0.9, 0.25, 1, 0.9, -0.75, 4, -0.9, -0.25, 4, 0.9, -0.75, 4, 0.9, 0.25, 4, 0.9, 0.75, 4, -0.9, 0.75, 4, 0.9, -0.75, 4, -0.9, 0.25, 4, 0.9, -0.25, 4, 0.9, -0.25, 4, -0.9, 0.25, 4, 0.9, -0.75, 4, -0.9, 0.25, 4, 0.9, 0.25, 4, -0.9, 0.75, 4, -0.9, 0.25, 4, 0.9, -0.25, 4, -0.9, 0.25, 4, -0.9, 0.25, 1, 0.9, 0.75, 4, 0.9, 0.75, 1, 0.9, 0.25, 1, 0.9, 0.25, 4, 0.9, 0.75, 4, 0.9, 0.75, 1, 0.9, 0.75, 4, -0.9, 0.75, 1, -0.9, 0.75, 1, 0.9, 0.75, 4, 0.9, 0.75, 4, -0.9, -0.75, 1, -0.9, -0.75, 4, 0.9, -0.75, 1, 0.9, -0.75, 1, -0.9, -0.75, 4, -0.9, -0.75, 4, 0.9, 0.75, 1, -0.9, 0.25, 4, -0.9, 0.25, 1, -0.9, 0.75, 1, -0.9, 0.75, 4, -0.9, 0.25, 4, -0.9, -0.25, 4, -0.9, 0.25, 4, -4.9, 0.25, 4, -0.9, -0.25, 4, -0.9, -0.25, 4, -4.9, 0.25, 4, -4.9, -0.75, 1, 0.9, -0.25, 4, 0.9, -0.25, 1, 0.9, -0.75, 1, 0.9, -0.75, 4, 0.9, -0.25, 4, 0.9, -0.25, 4, 0.9, -0.25, 2.8, 4.9, -0.25, 1, 0.9, -0.25, 4, 0.9, -0.25, 4, 4.9, -0.25, 2.8, 4.9, 0.25, 2.8, -4.9, -0.25, 4, -4.9, -0.25, 2.8, -4.9, 0.25, 2.8, -4.9, 0.25, 4, -4.9, -0.25, 4, -4.9, 0.25, 1, -0.9, -0.25, 2.8, -4.9, -0.25, 1, -0.9, 0.25, 1, -0.9, 0.25, 2.8, -4.9, -0.25, 2.8, -4.9, 0.25, 4, -0.9, 0.25, 2.8, -4.9, 0.25, 1, -0.9, 0.25, 4, -0.9, 0.25, 4, -4.9, 0.25, 2.8, -4.9, -0.25, 1, -0.9, -0.25, 4, -4.9, -0.25, 4, -0.9, -0.25, 1, -0.9, -0.25, 2.8, -4.9, -0.25, 4, -4.9, -0.25, 2.8, 4.9, 0.25, 4, 4.9, 0.25, 2.8, 4.9, -0.25, 2.8, 4.9, -0.25, 4, 4.9, 0.25, 4, 4.9, 0.25, 1, 0.9, 0.25, 4, 4.9, 0.25, 4, 0.9, 0.25, 1, 0.9, 0.25, 2.8, 4.9, 0.25, 4, 4.9, 0.25, 4, 0.9, -0.25, 4, 4.9, -0.25, 4, 0.9, 0.25, 4, 0.9, 0.25, 4, 4.9, -0.25, 4, 4.9, -0.25, 1, 0.9, 0.25, 2.8, 4.9, 0.25, 1, 0.9, -0.25, 1, 0.9, -0.25, 2.8, 4.9, 0.25, 2.8, 4.9)
 
 [node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("WEAPONRY")]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_u5n7m")
-WEAPONRY = NodePath("PlayerMesh/Turret")
+WEAPONRY = NodePath("Robot/Turret")
 HEALTH_COMPONENT = SubResource("Resource_eisdi")
 TILT_UPPER_LIMIT = 0.0
 BASE_SPEED = 20.0
 DECELERATION = 2.0
 
-[node name="PlayerMesh" parent="." instance=ExtResource("1_h8jyn")]
+[node name="Robot" parent="." instance=ExtResource("3_sosrw")]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, 0, 0)
 
-[node name="Turret" parent="PlayerMesh" instance=ExtResource("3_t1l53")]
+[node name="Turret" parent="Robot" instance=ExtResource("3_t1l53")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-shape = SubResource("BoxShape3D_442m3")
 
 [node name="CameraController" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.4472, 0.8944, 0, -0.8944, 0.4472, 0, 5, 4)
 
 [node name="Camera3D" type="Camera3D" parent="CameraController"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(9.55343e-16, -2.18557e-08, -0.5, -0.5, -2.18557e-08, 0, -2.18557e-08, 0.5, -2.18557e-08, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_758q8")

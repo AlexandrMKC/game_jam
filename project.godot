@@ -69,6 +69,7 @@ move_down={
 
 [layer_names]
 
+3d_physics/layer_1="Mosue raycast"
 3d_physics/layer_2="Player Hits"
 
 [rendering]

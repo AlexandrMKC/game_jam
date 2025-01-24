@@ -2,7 +2,7 @@ class_name Turret
 extends Weapon
 
 @export
-var SHELL_DAMAGE : float = 20
+var SHELL_DAMAGE_OVERRIDE : float = 0
 
 @export
 var ROTATION_SPEED: float = 5
@@ -36,16 +36,17 @@ var VERTICAL_UPPER_ROTATION_LIMIT: float = 180:
 		VERTICAL_UPPER_ROTATION_LIMIT = value
 
 @onready
-var TURRET_BASE: MeshInstance3D = get_node("Base")
+var TURRET_BASE: MeshInstance3D = $Base
 @onready
-var BARREL: MeshInstance3D = get_node("Base/GunBarrel")
-
+var BARREL: MeshInstance3D = $Base/GunBarrel
+@onready
+var SPAWNPOINT: Node3D = $Base/GunBarrel/SpawnPoint
 #var _horizonal_rotation: float = 0
 #var _vertical_rotation: float = 0
 var _last_position: Vector3
 
-@onready
-var shell_class: Resource = load("res://scenes/shell.tscn")
+@export
+var shell_class: PackedScene
 var shell_instance: Shell
 
 func _ready() -> void:
@@ -72,8 +73,9 @@ func _RotateTo(delta: float, target_position: Vector3 = _last_position):
 
 func _Shoot() -> void:
 	shell_instance = shell_class.instantiate()
-	shell_instance.shell_damage = SHELL_DAMAGE
-	shell_instance.position = BARREL.global_position
-	shell_instance.transform.basis = BARREL.global_transform.basis
+	if !is_zero_approx(SHELL_DAMAGE_OVERRIDE):
+		shell_instance.SHELL_DAMAGE = SHELL_DAMAGE_OVERRIDE
+	shell_instance.position = SPAWNPOINT.global_position
+	shell_instance.transform.basis = SPAWNPOINT.global_transform.basis
 	get_tree().root.add_child(shell_instance)
 	#TODO - add effects, sound
