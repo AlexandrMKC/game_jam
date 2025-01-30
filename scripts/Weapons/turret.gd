@@ -91,10 +91,6 @@ func _RotateTo(delta: float, target_position: Vector3):
 	_cannon_vertical_rotation = atan2(direction.y, sqrt(direction.z * direction.z + direction.x * direction.x))
 	
 	_rotation_requested = true
-	#var new_transform = turret_base.global_transform.looking_at(target_position)
-	#turret_base.global_transform = turret_base.global_transform.interpolate_with(new_transform, ROTATION_SPEED * delta)
-	#turret_base.scale = Vector3(1, 1, 1)
-	#_last_position = target_position
 
 func _Shoot() -> void:
 	_shell_instance = SHELL_CLASS.instantiate()

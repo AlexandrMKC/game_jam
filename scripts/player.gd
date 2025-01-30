@@ -25,6 +25,14 @@ var RAYCAST_COLLISION_MASK : int = 1
 @export
 var RAYCAST_RANGE : float = 512
 
+@export_group("Zoom")
+@export
+var MAX_ZOOM : float = 3
+@export
+var MIN_ZOOM : float = 0.5
+@export
+var ZOOM_SPEED : float = 0.1
+
 @export_group("Input")
 @export
 var YAW_SENSITIVITY : float = 0.3
@@ -81,6 +89,7 @@ var _current_speed_multiplier : float = 1
 var current_speed : float:
 	get:
 		return BASE_SPEED * _current_speed_multiplier
+var _zoom : float = 1
 
 signal projectile_hit(damage: float)
 		
@@ -129,23 +138,40 @@ func _unhandled_input(event: InputEvent) -> void:
 		_rotation_input.x = -event.relative.x * YAW_SENSITIVITY
 		_rotation_input.y = -event.relative.y * PITCH_SENSITIVITY
 	
+	__Shoot(event)
+	
+	__Accelerate(event)
+	
+	__Zoom(event)
+		
+func _on_health_component_health_depleted() -> void:
+	print("You died!")
+	#TODO - change to actual stuff
+	
+func __Shoot(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
 		fire_rate_timer.Activate()
 		
 	if event.is_action_released("shoot"):
 		fire_rate_timer.Deactivate()
 		
+func __Accelerate(event: InputEvent) -> void:
 	if event.is_action_pressed("accelerate"):
 		_current_speed_multiplier = ACCELERATED_MUTLIPLIER
 
 	if event.is_action_released("accelerate"):
 		_current_speed_multiplier = 1
 
-func _on_health_component_health_depleted() -> void:
-	print("You died!")
-	#TODO - change to actual stuff
+func __Zoom(event: InputEvent) -> void:
+	if event.is_action_pressed("zoom_in"):
+		_zoom -= ZOOM_SPEED
 
-func __HorizontalMove(delta: float):
+	if event.is_action_pressed("zoom_out"):
+		_zoom += ZOOM_SPEED
+
+	_zoom = clamp(_zoom, MIN_ZOOM, MAX_ZOOM)
+
+func __HorizontalMove(delta: float) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
@@ -155,7 +181,7 @@ func __HorizontalMove(delta: float):
 		_main_movement = _main_movement.lerp(Vector3.ZERO, DECELERATION * delta)
 
 
-func __VerticalMove(delta: float):
+func __VerticalMove(delta: float) -> void:
 	var vertical_direction := Input.get_axis("move_down", "move_up")
 	if vertical_direction:
 		_vertical_movement = lerp(_vertical_movement, vertical_direction * VERTICAL_SPEED, VERTICAL_ACCELERATION * delta)
@@ -169,9 +195,12 @@ func __UpdateCamera(delta: float) -> void:
 
 	_player_rotation.y += _rotation_input.x * delta
 	_camera_rotation.x += _rotation_input.y * delta
-	
-	global_transform.basis = Basis.from_euler(_player_rotation)
-	pitch_node.transform.basis = Basis.from_euler(_camera_rotation)
+
+	rotate_object_local(Vector3.UP, _rotation_input.x * delta)
+	pitch_node.rotate_object_local(Vector3.RIGHT, _rotation_input.y * delta)
+	pitch_node.scale = pitch_node.scale.lerp(Vector3.ONE * _zoom, ZOOM_SPEED)
+	#global_transform.basis = Basis.from_euler(_player_rotation)
+	#pitch_node.transform.basis = Basis.from_euler(_camera_rotation)
 
 	_rotation_input = Vector2.ZERO
 

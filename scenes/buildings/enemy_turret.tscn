@@ -14,7 +14,7 @@ TOTAL_HEALTH = 50.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_tttca"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ayjak"]
-radius = 50.0
+resource_local_to_scene = true
 
 [node name="EnemyTurret" type="Node3D"]
 script = ExtResource("1_whwp8")

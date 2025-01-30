@@ -18,8 +18,6 @@ var destruct_timer = $DestructTimer
 
 var _base_speed : float = 40
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if !mesh:
 		push_error("Missing shell mesh!")
@@ -38,19 +36,9 @@ func _physics_process(delta: float) -> void:
 	position += transform.basis * Vector3.FORWARD * SPEED * delta
 	if raycast.is_colliding():
 		mesh.visible = false
-		# maybe bad
 		var collider = raycast.get_collider()
 		if "projectile_hit" in collider:
 			collider.projectile_hit.emit(SHELL_DAMAGE)
-		#if collider is not Player:
-			#collider = collider.get_parent()
-		#if "SHIELD_COMPONENT" in collider:
-			#if collider.IsShieldActive():
-				#collider.SHIELD_COMPONENT.TakeDamage(SHELL_DAMAGE)
-				#print(collider.SHIELD_COMPONENT._shield, " remaining shield")
-		#elif "HEALTH_COMPONENT" in collider:
-			#collider.HEALTH_COMPONENT.TakeDamage(SHELL_DAMAGE)
-			#print(collider.HEALTH_COMPONENT._health, " remaining health")
 		#TODO - add effects, sound
 		queue_free()
 

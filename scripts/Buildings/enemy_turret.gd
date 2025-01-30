@@ -11,6 +11,7 @@ var fire_rate_timer : FireRateTimer = $FireRateTimer
 var detection_area : Area3D = $DetectionArea
 @onready
 var detection_area_shape : SphereShape3D = $DetectionArea/DetectionAreaShape.shape
+
 @export
 var DETECTION_RANGE : float = 20
 @export
