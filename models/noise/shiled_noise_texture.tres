@@ -1,0 +1,11 @@
+[gd_resource type="NoiseTexture2D" load_steps=3 format=3 uid="uid://b54481nnxrssq"]
+
+[ext_resource type="FastNoiseLite" uid="uid://c3ai0li6tplee" path="res://models/noise/shield_noise.tres" id="1_ld07h"]
+
+[sub_resource type="Gradient" id="Gradient_qvlay"]
+
+[resource]
+seamless = true
+seamless_blend_skirt = 0.4
+color_ramp = SubResource("Gradient_qvlay")
+noise = ExtResource("1_ld07h")

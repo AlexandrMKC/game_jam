@@ -7,43 +7,50 @@ var SPEED : float = 40
 var SHELL_DAMAGE : float = 20
 
 @export
-var RAYCAST_DISTANCE: float = -0.7 # forward
+var RAYCAST_DISTANCE: float = -0.8 # forward
 
 @onready
-var MESH = $MeshInstance3D
+var mesh = $MeshInstance3D
 @onready
-var RAYCAST = $RayCast3D
+var raycast = $RayCast3D
 @onready
-var DESTRUCT_TIMER = $DestructTimer
+var destruct_timer = $DestructTimer
 
 var _base_speed : float = 40
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if !MESH:
+	if !mesh:
 		push_error("Missing shell mesh!")
-	if !RAYCAST:
+	if !raycast:
 		push_error("Missing shell Raycast!")
-	if !DESTRUCT_TIMER:
+	if !destruct_timer:
 		push_error("Missing shell Destruct timer!")
 
 	scale = Vector3(1, 1, 1)
 	
-	RAYCAST.target_position.z = RAYCAST_DISTANCE * SPEED / _base_speed
+	raycast.target_position.z = RAYCAST_DISTANCE * SPEED / _base_speed
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	position += transform.basis * Vector3.FORWARD * SPEED * delta
-	if RAYCAST.is_colliding():
-		MESH.visible = false
+	if raycast.is_colliding():
+		mesh.visible = false
 		# maybe bad
-		var collider = RAYCAST.get_collider()
-		if !"HEALTH_COMPONENT" in collider:
-			collider = collider.get_parent()
-		elif "HEALTH_COMPONENT" in collider:
-			collider.HEALTH_COMPONENT.TakeDamage(SHELL_DAMAGE)
+		var collider = raycast.get_collider()
+		if "projectile_hit" in collider:
+			collider.projectile_hit.emit(SHELL_DAMAGE)
+		#if collider is not Player:
+			#collider = collider.get_parent()
+		#if "SHIELD_COMPONENT" in collider:
+			#if collider.IsShieldActive():
+				#collider.SHIELD_COMPONENT.TakeDamage(SHELL_DAMAGE)
+				#print(collider.SHIELD_COMPONENT._shield, " remaining shield")
+		#elif "HEALTH_COMPONENT" in collider:
+			#collider.HEALTH_COMPONENT.TakeDamage(SHELL_DAMAGE)
+			#print(collider.HEALTH_COMPONENT._health, " remaining health")
 		#TODO - add effects, sound
 		queue_free()
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d1bppswnxe5ix"]
 
-[ext_resource type="PackedScene" uid="uid://bxk3hbm40e6ld" path="res://models/loc_1.gltf" id="1_44saa"]
+[ext_resource type="PackedScene" path="res://models/loc_1.gltf" id="1_44saa"]
 
 [sub_resource type="Environment" id="Environment_yc6pb"]
 background_mode = 1

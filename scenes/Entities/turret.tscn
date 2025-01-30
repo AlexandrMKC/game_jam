@@ -1,24 +1,28 @@
 [gd_scene load_steps=5 format=3 uid="uid://dawcj88u8xawr"]
 
 [ext_resource type="Script" path="res://scripts/Weapons/turret.gd" id="1_g7fw4"]
-[ext_resource type="PackedScene" uid="uid://bep8a5frklmku" path="res://scenes/shell.tscn" id="2_3pqj8"]
+[ext_resource type="PackedScene" uid="uid://bep8a5frklmku" path="res://scenes/Entities/shell.tscn" id="2_3pqj8"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_7vatr"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_dekxe"]
+lightmap_size_hint = Vector2i(12, 15)
 size = Vector3(0.2, 0.2, 1.5)
 
 [node name="Weapon" type="Node3D"]
 script = ExtResource("1_g7fw4")
-shell_class = ExtResource("2_3pqj8")
+SHELL_CLASS = ExtResource("2_3pqj8")
 
 [node name="Base" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_7vatr")
 skeleton = NodePath("")
 
-[node name="GunBarrel" type="MeshInstance3D" parent="Base"]
+[node name="Node3D" type="Node3D" parent="Base"]
+
+[node name="Cannon" type="MeshInstance3D" parent="Base/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.75)
 mesh = SubResource("BoxMesh_dekxe")
+skeleton = NodePath("../..")
 
-[node name="SpawnPoint" type="Node3D" parent="Base/GunBarrel"]
+[node name="SpawnPoint" type="Node3D" parent="Base/Node3D/Cannon"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.506198)

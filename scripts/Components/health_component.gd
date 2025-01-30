@@ -14,8 +14,9 @@ func _init():
 	
 func Ready():
 	_health = TOTAL_HEALTH
-	print(_health)
-	
+	if is_zero_approx(_health):
+		push_error("Object ", resource_scene_unique_id, " have their health set to 0, most likely this is a mistake!")
+
 func TakeDamage(damage: float):
 	# debug
 	if damage < 0:
