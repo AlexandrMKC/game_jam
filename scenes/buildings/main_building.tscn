@@ -1,20 +1,21 @@
-[gd_scene load_steps=11 format=4 uid="uid://b4o5jrksm773t"]
+[gd_scene load_steps=12 format=4 uid="uid://b4o5jrksm773t"]
 
-[ext_resource type="Script" path="res://scripts/Buildings/building.gd" id="1_qyfh1"]
-[ext_resource type="Script" path="res://scripts/Components/health_component.gd" id="2_bhj2j"]
-[ext_resource type="Script" path="res://scripts/Components/shield_component.gd" id="3_j05cl"]
-[ext_resource type="Script" path="res://scripts/hit_scanner.gd" id="4_apxef"]
+[ext_resource type="Script" path="res://scripts/Buildings/Building.cs" id="1_smmc3"]
+[ext_resource type="Script" path="res://scripts/HitScanner.cs" id="1_vmt0h"]
+[ext_resource type="Script" path="res://scripts/Components/HealthComponent.cs" id="2_pouqj"]
+[ext_resource type="Script" path="res://scripts/Components/ShieldComponent.cs" id="3_4lvm4"]
+[ext_resource type="Material" uid="uid://dhgh783l6d2li" path="res://materials/shield_material.tres" id="4_td1up"]
 
-[sub_resource type="Resource" id="Resource_37lso"]
+[sub_resource type="Resource" id="Resource_dqeff"]
 resource_local_to_scene = true
-script = ExtResource("2_bhj2j")
-TOTAL_HEALTH = 300.0
+script = ExtResource("2_pouqj")
+TotalHealth = 200.0
 
-[sub_resource type="Resource" id="Resource_hssuk"]
+[sub_resource type="Resource" id="Resource_h6bsk"]
 resource_local_to_scene = true
-script = ExtResource("3_j05cl")
-TOTAL_SHIELD = 1.0
-INVINCIBLE = true
+script = ExtResource("3_4lvm4")
+TotalShield = 1.0
+Invincible = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e5rvq"]
 resource_name = "warehouse"
@@ -58,20 +59,21 @@ shadow_mesh = SubResource("ArrayMesh_3yyqk")
 data = PackedVector3Array(-10, -2.5, 20, -10, 2.4999, -20, -10, 2.4999, 20, -10, -2.5, 20, -10, -2.5, -20, -10, 2.4999, -20, 20, -2.5, -20, -10, 2.4999, -20, -10, -2.5, -20, -10, 2.4999, -20, 20, 2.4999, -20, 4.9998, 6.9256, -20, -10, 2.4999, -20, 20, -2.5, -20, 20, 2.4999, -20, 20, -2.5, -20, 20, 2.4999, 20, 20, 2.4999, -20, 20, -2.5, -20, 20, -2.5, 20, 20, 2.4999, 20, -10, -2.5, 20, 20, 2.4999, 20, 20, -2.5, 20, 20, 2.4999, 20, -10, 2.4999, 20, 4.9998, 6.9256, 20, 20, 2.4999, 20, -10, -2.5, 20, -10, 2.4999, 20, -10, -2.5, -20, 20, -2.5, 20, 20, -2.5, -20, -10, -2.5, -20, -10, -2.5, 20, 20, -2.5, 20, 4.9998, 6.9256, -20, -10, 2.4999, 20, -10, 2.4999, -20, 4.9998, 6.9256, -20, 4.9998, 6.9256, 20, -10, 2.4999, 20, 20, 2.4999, -20, 4.9998, 6.9256, 20, 4.9998, 6.9256, -20, 20, 2.4999, -20, 20, 2.4999, 20, 4.9998, 6.9256, 20)
 
 [node name="MainBuilding" type="Node3D"]
-script = ExtResource("1_qyfh1")
-HEALTH_COMPONENT = SubResource("Resource_37lso")
-SHIELD_COMPONENT = SubResource("Resource_hssuk")
+script = ExtResource("1_smmc3")
+Health = SubResource("Resource_dqeff")
+Shield = SubResource("Resource_h6bsk")
+ShieldMaterial = ExtResource("4_td1up")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 mesh = SubResource("ArrayMesh_8yj1e")
 skeleton = NodePath("")
 
 [node name="HitScanner" type="StaticBody3D" parent="."]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 collision_layer = 3
 collision_mask = 3
-script = ExtResource("4_apxef")
+script = ExtResource("1_vmt0h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitScanner"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_vy06b")

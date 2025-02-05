@@ -1,34 +1,13 @@
-[gd_scene load_steps=18 format=3 uid="uid://b5tc51obi0kks"]
+[gd_scene load_steps=9 format=3 uid="uid://b5tc51obi0kks"]
 
-[ext_resource type="PackedScene" path="res://models/loc_1.gltf" id="1_f0f4m"]
-[ext_resource type="Script" path="res://scripts/Buildings/building.gd" id="2_vbn2i"]
-[ext_resource type="Script" path="res://scripts/Components/health_component.gd" id="3_xxj6t"]
+[ext_resource type="PackedScene" uid="uid://bxk3hbm40e6ld" path="res://models/loc_1.gltf" id="1_f0f4m"]
 [ext_resource type="PackedScene" uid="uid://cxjt12mbnuy81" path="res://scenes/buildings/enemy_turret.tscn" id="4_5kx5w"]
-[ext_resource type="Script" path="res://scripts/Components/shield_component.gd" id="4_typtx"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_4vlmw"]
 data = PackedVector3Array(-50, 0, 50, 50, 0, -50, -50, 0, -50, -50, 0, 50, 50, 0, 50, 50, 0, -50, -49.0005, 1, 48.999, 48.999, 1, -49.0005, 48.999, 1, 48.999, -49.0005, 1, 48.999, -49.0005, 1, -49.0005, 48.999, 1, -49.0005, 50, 0, 50, 50, 1, -50, 50, 0, -50, 50, 0, 50, 50, 1, 50, 50, 1, -50, -50, 0, -50, -50, 1, 50, -50, 0, 50, -50, 0, -50, -50, 1, -50, -50, 1, 50, 50, 0, -50, -50, 1, -50, -50, 0, -50, 50, 0, -50, 50, 1, -50, -50, 1, -50, -50, 0, 50, 50, 1, 50, 50, 0, 50, -50, 0, 50, -50, 1, 50, 50, 1, 50, -50, 1, -50, -50, 4, 50, -50, 1, 50, -50, 1, -50, -50, 4, -50, -50, 4, 50, -49.0005, 1, -49.0005, 48.999, 4, -49.0005, 48.999, 1, -49.0005, -49.0005, 1, -49.0005, -49.0005, 4, -49.0005, 48.999, 4, -49.0005, 50, 1, 50, 50, 4, -50, 50, 1, -50, 50, 1, 50, 50, 4, 50, 50, 4, -50, -49.0005, 1, 48.999, -49.0005, 4, -49.0005, -49.0005, 1, -49.0005, -49.0005, 1, 48.999, -49.0005, 4, 48.999, -49.0005, 4, -49.0005, -49.0005, 4, 48.999, -50, 4, -50, -49.0005, 4, -49.0005, -49.0005, 4, 48.999, -50, 4, 50, -50, 4, -50, 48.999, 4, 48.999, -50, 4, 50, -49.0005, 4, 48.999, 48.999, 4, 48.999, 50, 4, 50, -50, 4, 50, 48.999, 4, -49.0005, 50, 4, 50, 48.999, 4, 48.999, 48.999, 4, -49.0005, 50, 4, -50, 50, 4, 50, -49.0005, 4, -49.0005, 50, 4, -50, 48.999, 4, -49.0005, -49.0005, 4, -49.0005, -50, 4, -50, 50, 4, -50, 48.999, 1, 48.999, -49.0005, 4, 48.999, -49.0005, 1, 48.999, 48.999, 1, 48.999, 48.999, 4, 48.999, -49.0005, 4, 48.999, 50, 1, -50, -50, 4, -50, -50, 1, -50, 50, 1, -50, 50, 4, -50, -50, 4, -50, -50, 1, 50, 50, 4, 50, 50, 1, 50, -50, 1, 50, -50, 4, 50, 50, 4, 50, 48.999, 1, -49.0005, 48.999, 4, 48.999, 48.999, 1, 48.999, 48.999, 1, -49.0005, 48.999, 4, -49.0005, 48.999, 4, 48.999)
 
-[sub_resource type="Resource" id="Resource_1y3yw"]
-script = ExtResource("3_xxj6t")
-TOTAL_HEALTH = 200.0
-
-[sub_resource type="Resource" id="Resource_7mu2h"]
-script = ExtResource("4_typtx")
-TOTAL_SHIELD = 100.0
-INVINCIBLE = false
-
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_mx2pa"]
 data = PackedVector3Array(-10, -2.5, 20, -10, 2.4999, -20, -10, 2.4999, 20, -10, -2.5, 20, -10, -2.5, -20, -10, 2.4999, -20, 20, -2.5, -20, -10, 2.4999, -20, -10, -2.5, -20, -10, 2.4999, -20, 20, 2.4999, -20, 4.9998, 6.9256, -20, -10, 2.4999, -20, 20, -2.5, -20, 20, 2.4999, -20, 20, -2.5, -20, 20, 2.4999, 20, 20, 2.4999, -20, 20, -2.5, -20, 20, -2.5, 20, 20, 2.4999, 20, -10, -2.5, 20, 20, 2.4999, 20, 20, -2.5, 20, 20, 2.4999, 20, -10, 2.4999, 20, 4.9998, 6.9256, 20, 20, 2.4999, 20, -10, -2.5, 20, -10, 2.4999, 20, -10, -2.5, -20, 20, -2.5, 20, 20, -2.5, -20, -10, -2.5, -20, -10, -2.5, 20, 20, -2.5, 20, 4.9998, 6.9256, -20, -10, 2.4999, 20, -10, 2.4999, -20, 4.9998, 6.9256, -20, 4.9998, 6.9256, 20, -10, 2.4999, 20, 20, 2.4999, -20, 4.9998, 6.9256, 20, 4.9998, 6.9256, -20, 20, 2.4999, -20, 20, 2.4999, 20, 4.9998, 6.9256, 20)
-
-[sub_resource type="Resource" id="Resource_vnbpw"]
-script = ExtResource("3_xxj6t")
-TOTAL_HEALTH = 100.0
-
-[sub_resource type="Resource" id="Resource_nkn2u"]
-script = ExtResource("4_typtx")
-TOTAL_SHIELD = 1.0
-INVINCIBLE = true
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_kyctw"]
 data = PackedVector3Array(-2.5, -2.5, 2.5, -2.5, 2.5, -7.5, -2.5, 2.5, 2.5, -2.5, -2.5, 2.5, -2.5, -2.5, -7.5, -2.5, 2.5, -7.5, -2.5, -2.5, -7.5, 12.5, 2.5, -7.5, -2.5, 2.5, -7.5, -2.5, -2.5, -7.5, 12.5, -2.5, -7.5, 12.5, 2.5, -7.5, 12.5, -2.5, -7.5, 12.5, 2.5, 2.5, 12.5, 2.5, -7.5, 12.5, -2.5, -7.5, 12.5, -2.5, 2.5, 12.5, 2.5, 2.5, 12.5, -2.5, 2.5, -2.5, 2.5, 2.5, 12.5, 2.5, 2.5, 12.5, -2.5, 2.5, -2.5, -2.5, 2.5, -2.5, 2.5, 2.5, -2.5, -2.5, -7.5, 12.5, -2.5, 2.5, 12.5, -2.5, -7.5, -2.5, -2.5, -7.5, -2.5, -2.5, 2.5, 12.5, -2.5, 2.5, 12.5, 2.5, -7.5, -2.5, 2.5, 2.5, -2.5, 2.5, -7.5, 12.5, 2.5, -7.5, 12.5, 2.5, 2.5, -2.5, 2.5, 2.5)
@@ -49,15 +28,6 @@ ambient_light_color = Color(0.0881476, 0.55342, 0.971353, 1)
 ambient_light_energy = 5.06
 reflected_light_source = 2
 
-[sub_resource type="Resource" id="Resource_uyqtr"]
-resource_local_to_scene = true
-script = ExtResource("3_xxj6t")
-TOTAL_HEALTH = 50.0
-
-[sub_resource type="Resource" id="Resource_ahl7q"]
-script = ExtResource("3_xxj6t")
-TOTAL_HEALTH = 50.0
-
 [node name="location1" instance=ExtResource("1_f0f4m")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Plane" index="0"]
@@ -69,9 +39,6 @@ shape = SubResource("ConcavePolygonShape3D_4vlmw")
 
 [node name="Cube" parent="." index="1"]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -24.326, 1.82971, 0)
-script = ExtResource("2_vbn2i")
-HEALTH_COMPONENT = SubResource("Resource_1y3yw")
-SHIELD_COMPONENT = SubResource("Resource_7mu2h")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Cube" index="0"]
 collision_layer = 3
@@ -82,9 +49,6 @@ shape = SubResource("ConcavePolygonShape3D_mx2pa")
 
 [node name="Cube_001" parent="." index="2"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 13.2901, 2.15075, 0)
-script = ExtResource("2_vbn2i")
-HEALTH_COMPONENT = SubResource("Resource_vnbpw")
-SHIELD_COMPONENT = SubResource("Resource_nkn2u")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Cube_001" index="0"]
 collision_layer = 3
@@ -102,10 +66,6 @@ shadow_enabled = true
 
 [node name="EnemyTurret" parent="." index="4" instance=ExtResource("4_5kx5w")]
 transform = Transform3D(-0.228062, 0, -0.973647, 0, 1, 0, 0.973647, 0, -0.228062, -24, 1.7, 16)
-DETECTION_RANGE = 50.0
-HEALTH_COMPONENT = SubResource("Resource_uyqtr")
 
 [node name="EnemyTurret2" parent="." index="5" instance=ExtResource("4_5kx5w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -18.171)
-DETECTION_RANGE = 100.0
-HEALTH_COMPONENT = SubResource("Resource_ahl7q")

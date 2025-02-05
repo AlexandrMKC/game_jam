@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://da1mwp4i0kwuw"]
 
-[ext_resource type="Script" path="res://scripts/hit_scanner.gd" id="1_jj8b1"]
+[ext_resource type="Script" path="res://scripts/HitScanner.cs" id="1_gv5dq"]
 
 [node name="HitScanner" type="StaticBody3D"]
-script = ExtResource("1_jj8b1")
+script = ExtResource("1_gv5dq")
