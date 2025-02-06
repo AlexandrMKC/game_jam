@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://tml7wbstx6fx"]
+
+[ext_resource type="PackedScene" uid="uid://d28nmd2y4iiqs" path="res://models/locations/loc1/base.gltf" id="1_xb8jj"]
+[ext_resource type="Shader" path="res://shaders/locations/loc_1/loc_1_base.gdshader" id="2_qcb8x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2g6md"]
+render_priority = 0
+shader = ExtResource("2_qcb8x")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tb7rx"]
+next_pass = SubResource("ShaderMaterial_2g6md")
+
+[node name="loc_1_base" instance=ExtResource("1_xb8jj")]
+
+[node name="Plane" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_tb7rx")
