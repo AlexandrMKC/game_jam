@@ -1,20 +1,21 @@
-[gd_scene load_steps=9 format=3 uid="uid://eta0cidyx2om"]
+[gd_scene load_steps=10 format=3 uid="uid://eta0cidyx2om"]
 
-[ext_resource type="Script" path="res://scripts/Buildings/building.gd" id="1_hkh7b"]
-[ext_resource type="Script" path="res://scripts/Components/health_component.gd" id="2_0fkrh"]
-[ext_resource type="Script" path="res://scripts/Components/shield_component.gd" id="3_d254o"]
-[ext_resource type="Script" path="res://scripts/hit_scanner.gd" id="4_v3u1v"]
+[ext_resource type="Script" path="res://scripts/HitScanner.cs" id="1_rsmg7"]
+[ext_resource type="Script" path="res://scripts/Buildings/Building.cs" id="1_xb50q"]
+[ext_resource type="Script" path="res://scripts/Components/HealthComponent.cs" id="2_7yimy"]
+[ext_resource type="Script" path="res://scripts/Components/ShieldComponent.cs" id="3_yuk0u"]
+[ext_resource type="Material" uid="uid://dhgh783l6d2li" path="res://materials/shield_material.tres" id="4_r37aa"]
 
-[sub_resource type="Resource" id="Resource_3rvtk"]
+[sub_resource type="Resource" id="Resource_bnff1"]
 resource_local_to_scene = true
-script = ExtResource("2_0fkrh")
-TOTAL_HEALTH = 100.0
+script = ExtResource("2_7yimy")
+TotalHealth = 100.0
 
-[sub_resource type="Resource" id="Resource_t1lb5"]
+[sub_resource type="Resource" id="Resource_1duas"]
 resource_local_to_scene = true
-script = ExtResource("3_d254o")
-TOTAL_SHIELD = 100.0
-INVINCIBLE = false
+script = ExtResource("3_yuk0u")
+TotalShield = 100.0
+Invincible = false
 
 [sub_resource type="BoxMesh" id="BoxMesh_620yq"]
 size = Vector3(10, 2, 10)
@@ -23,17 +24,18 @@ size = Vector3(10, 2, 10)
 data = PackedVector3Array(-5, 1, 5, 5, 1, 5, -5, -1, 5, 5, 1, 5, 5, -1, 5, -5, -1, 5, 5, 1, -5, -5, 1, -5, 5, -1, -5, -5, 1, -5, -5, -1, -5, 5, -1, -5, 5, 1, 5, 5, 1, -5, 5, -1, 5, 5, 1, -5, 5, -1, -5, 5, -1, 5, -5, 1, -5, -5, 1, 5, -5, -1, -5, -5, 1, 5, -5, -1, 5, -5, -1, -5, 5, 1, 5, -5, 1, 5, 5, 1, -5, -5, 1, 5, -5, 1, -5, 5, 1, -5, -5, -1, 5, 5, -1, 5, -5, -1, -5, 5, -1, 5, 5, -1, -5, -5, -1, -5)
 
 [node name="Building" type="Node3D"]
-script = ExtResource("1_hkh7b")
-HEALTH_COMPONENT = SubResource("Resource_3rvtk")
-SHIELD_COMPONENT = SubResource("Resource_t1lb5")
+script = ExtResource("1_xb50q")
+Health = SubResource("Resource_bnff1")
+Shield = SubResource("Resource_1duas")
+ShieldMaterial = ExtResource("4_r37aa")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_620yq")
 
 [node name="HitScanner" type="StaticBody3D" parent="."]
 collision_layer = 3
 collision_mask = 3
-script = ExtResource("4_v3u1v")
+script = ExtResource("1_rsmg7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitScanner"]
 shape = SubResource("ConcavePolygonShape3D_wdvvj")

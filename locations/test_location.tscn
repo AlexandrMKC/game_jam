@@ -1,8 +1,8 @@
 [gd_scene load_steps=25 format=3 uid="uid://vshmqa8o18m5"]
 
 [ext_resource type="PackedScene" uid="uid://b4o5jrksm773t" path="res://scenes/buildings/main_building.tscn" id="1_rllmx"]
-[ext_resource type="Script" path="res://scripts/Components/health_component.gd" id="2_cvnq8"]
-[ext_resource type="Script" path="res://scripts/Components/shield_component.gd" id="3_6cwno"]
+[ext_resource type="Script" path="res://scripts/Components/HealthComponent.cs" id="2_w3xqc"]
+[ext_resource type="Script" path="res://scripts/Components/ShieldComponent.cs" id="3_iwkfh"]
 [ext_resource type="PackedScene" uid="uid://b5b4cd6vppgne" path="res://scenes/buildings/shield_building.tscn" id="3_v3f3m"]
 [ext_resource type="PackedScene" uid="uid://cxjt12mbnuy81" path="res://scenes/buildings/enemy_turret.tscn" id="4_h2clu"]
 [ext_resource type="PackedScene" uid="uid://eta0cidyx2om" path="res://scenes/buildings/building.tscn" id="5_o431o"]
@@ -16,68 +16,48 @@ size = Vector2(200, 200)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_6nvt1"]
 data = PackedVector3Array(100, 0, 100, -100, 0, 100, 100, 0, -100, -100, 0, 100, -100, 0, -100, 100, 0, -100)
 
-[sub_resource type="Resource" id="Resource_y3t00"]
+[sub_resource type="Resource" id="Resource_r3n8q"]
 resource_local_to_scene = true
-script = ExtResource("2_cvnq8")
-TOTAL_HEALTH = 300.0
+script = ExtResource("2_w3xqc")
+TotalHealth = 200.0
 
-[sub_resource type="Resource" id="Resource_3xxi6"]
+[sub_resource type="Resource" id="Resource_igogh"]
 resource_local_to_scene = true
-script = ExtResource("3_6cwno")
-TOTAL_SHIELD = 1.0
-INVINCIBLE = true
+script = ExtResource("3_iwkfh")
+TotalShield = 1.0
+Invincible = true
 
-[sub_resource type="Resource" id="Resource_hkkj7"]
+[sub_resource type="Resource" id="Resource_3llkf"]
 resource_local_to_scene = true
-script = ExtResource("2_cvnq8")
-TOTAL_HEALTH = 200.0
+script = ExtResource("2_w3xqc")
+TotalHealth = 100.0
 
-[sub_resource type="Resource" id="Resource_mhcx6"]
+[sub_resource type="Resource" id="Resource_gwwn1"]
 resource_local_to_scene = true
-script = ExtResource("2_cvnq8")
-TOTAL_HEALTH = 50.0
+script = ExtResource("2_w3xqc")
+TotalHealth = 100.0
 
-[sub_resource type="Resource" id="Resource_r1187"]
+[sub_resource type="Resource" id="Resource_k1yhx"]
 resource_local_to_scene = true
-script = ExtResource("2_cvnq8")
-TOTAL_HEALTH = 50.0
+script = ExtResource("3_iwkfh")
+TotalShield = 100.0
+Invincible = false
 
-[sub_resource type="Resource" id="Resource_vca4b"]
+[sub_resource type="Resource" id="Resource_5o31j"]
 resource_local_to_scene = true
-script = ExtResource("2_cvnq8")
-TOTAL_HEALTH = 50.0
+script = ExtResource("2_w3xqc")
+TotalHealth = 100.0
 
-[sub_resource type="Resource" id="Resource_vhbvy"]
+[sub_resource type="Resource" id="Resource_yn363"]
 resource_local_to_scene = true
-script = ExtResource("2_cvnq8")
-TOTAL_HEALTH = 50.0
+script = ExtResource("3_iwkfh")
+TotalShield = 100.0
+Invincible = false
 
-[sub_resource type="Resource" id="Resource_u3tar"]
+[sub_resource type="Resource" id="Resource_pmiad"]
 resource_local_to_scene = true
-script = ExtResource("2_cvnq8")
-TOTAL_HEALTH = 100.0
-
-[sub_resource type="Resource" id="Resource_a1onp"]
-resource_local_to_scene = true
-script = ExtResource("3_6cwno")
-TOTAL_SHIELD = 100.0
-INVINCIBLE = false
-
-[sub_resource type="Resource" id="Resource_ix1xr"]
-resource_local_to_scene = true
-script = ExtResource("2_cvnq8")
-TOTAL_HEALTH = 100.0
-
-[sub_resource type="Resource" id="Resource_0d7xs"]
-resource_local_to_scene = true
-script = ExtResource("3_6cwno")
-TOTAL_SHIELD = 100.0
-INVINCIBLE = false
-
-[sub_resource type="Resource" id="Resource_8ludq"]
-resource_local_to_scene = true
-script = ExtResource("2_cvnq8")
-TOTAL_HEALTH = 200.0
+script = ExtResource("2_w3xqc")
+TotalHealth = 100.0
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bostc"]
 
@@ -95,6 +75,26 @@ ambient_light_color = Color(0.0881476, 0.55342, 0.971353, 1)
 ambient_light_energy = 5.06
 reflected_light_source = 2
 
+[sub_resource type="Resource" id="Resource_kwmhq"]
+resource_local_to_scene = true
+script = ExtResource("2_w3xqc")
+TotalHealth = 50.0
+
+[sub_resource type="Resource" id="Resource_b34pc"]
+resource_local_to_scene = true
+script = ExtResource("2_w3xqc")
+TotalHealth = 50.0
+
+[sub_resource type="Resource" id="Resource_atq74"]
+resource_local_to_scene = true
+script = ExtResource("2_w3xqc")
+TotalHealth = 50.0
+
+[sub_resource type="Resource" id="Resource_2w6e5"]
+resource_local_to_scene = true
+script = ExtResource("2_w3xqc")
+TotalHealth = 50.0
+
 [node name="TestLocation" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -110,49 +110,28 @@ shape = SubResource("ConcavePolygonShape3D_6nvt1")
 
 [node name="MainBuilding" parent="." instance=ExtResource("1_rllmx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.4179, 0.686814, 1.83081)
-HEALTH_COMPONENT = SubResource("Resource_y3t00")
-SHIELD_COMPONENT = SubResource("Resource_3xxi6")
+Health = SubResource("Resource_r3n8q")
+Shield = SubResource("Resource_igogh")
 
-[node name="ShieldBuilding" parent="." node_paths=PackedStringArray("TARGET") instance=ExtResource("3_v3f3m")]
+[node name="ShieldBuilding" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("3_v3f3m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.0496, 1.264, 26.1565)
-HEALTH_COMPONENT = SubResource("Resource_hkkj7")
-TARGET = NodePath("../MainBuilding")
-INVINCIBLE_SHIELD = true
-
-[node name="EnemyTurret" parent="." instance=ExtResource("4_h2clu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.3753, 1.48796, 14.7712)
-DETECTION_RANGE = 100.0
-HEALTH_COMPONENT = SubResource("Resource_mhcx6")
-
-[node name="EnemyTurret2" parent="." instance=ExtResource("4_h2clu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.1484, 1.72229, -26.3061)
-DETECTION_RANGE = 100.0
-HEALTH_COMPONENT = SubResource("Resource_r1187")
-
-[node name="EnemyTurret3" parent="." instance=ExtResource("4_h2clu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.4653, 1.22416, -29.0231)
-DETECTION_RANGE = 100.0
-HEALTH_COMPONENT = SubResource("Resource_vca4b")
-
-[node name="EnemyTurret4" parent="." instance=ExtResource("4_h2clu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.774, 1.23822, 35.6752)
-DETECTION_RANGE = 30.0
-HEALTH_COMPONENT = SubResource("Resource_vhbvy")
+Health = SubResource("Resource_3llkf")
+Target = NodePath("../MainBuilding")
 
 [node name="Building" parent="." instance=ExtResource("5_o431o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.08011, 0.894426, 0.582024)
-HEALTH_COMPONENT = SubResource("Resource_u3tar")
-SHIELD_COMPONENT = SubResource("Resource_a1onp")
+Health = SubResource("Resource_gwwn1")
+Shield = SubResource("Resource_k1yhx")
 
 [node name="Building2" parent="." instance=ExtResource("5_o431o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8568, 1.21528, 22.9142)
-HEALTH_COMPONENT = SubResource("Resource_ix1xr")
-SHIELD_COMPONENT = SubResource("Resource_0d7xs")
+Health = SubResource("Resource_5o31j")
+Shield = SubResource("Resource_yn363")
 
-[node name="ShieldBuilding2" parent="." node_paths=PackedStringArray("TARGET") instance=ExtResource("3_v3f3m")]
+[node name="ShieldBuilding2" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("3_v3f3m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.14047, 1.08159, -18.6117)
-HEALTH_COMPONENT = SubResource("Resource_8ludq")
-TARGET = NodePath("../Building")
+Health = SubResource("Resource_pmiad")
+Target = NodePath("../Building")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_3wuw8")
@@ -160,3 +139,23 @@ environment = SubResource("Environment_3wuw8")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
+
+[node name="EnemyTurret" parent="." instance=ExtResource("4_h2clu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.0219, 1.36934, 33.3108)
+DetectionRange = 100.0
+Health = SubResource("Resource_kwmhq")
+
+[node name="EnemyTurret2" parent="." instance=ExtResource("4_h2clu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.9218, 1.3545, -32.4423)
+DetectionRange = 100.0
+Health = SubResource("Resource_b34pc")
+
+[node name="EnemyTurret3" parent="." instance=ExtResource("4_h2clu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.3584, 2.38269, -37.8687)
+DetectionRange = 100.0
+Health = SubResource("Resource_atq74")
+
+[node name="EnemyTurret4" parent="." instance=ExtResource("4_h2clu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.8669, 1.61354, 25.6038)
+DetectionRange = 50.0
+Health = SubResource("Resource_2w6e5")

@@ -1,39 +1,24 @@
 [gd_scene load_steps=9 format=3 uid="uid://cxjt12mbnuy81"]
 
+[ext_resource type="Script" path="res://scripts/Buildings/EnemyTurret.cs" id="1_3cpue"]
 [ext_resource type="PackedScene" uid="uid://dawcj88u8xawr" path="res://scenes/Entities/turret.tscn" id="1_182t2"]
-[ext_resource type="Script" path="res://scripts/Buildings/enemy_turret.gd" id="1_whwp8"]
-[ext_resource type="Script" path="res://scripts/Components/health_component.gd" id="2_3ku24"]
-[ext_resource type="Script" path="res://scripts/hit_scanner.gd" id="4_7ct47"]
-[ext_resource type="Script" path="res://scripts/fire_rate_timer.gd" id="5_ov00j"]
+[ext_resource type="Script" path="res://scripts/HitScanner.cs" id="1_t6uuo"]
+[ext_resource type="Script" path="res://scripts/Components/HealthComponent.cs" id="2_oaj5l"]
+[ext_resource type="Script" path="res://scripts/FireRateTimer.cs" id="3_m0wuv"]
 
-[sub_resource type="Resource" id="Resource_yvio1"]
+[sub_resource type="Resource" id="Resource_ax2to"]
 resource_local_to_scene = true
-script = ExtResource("2_3ku24")
-TOTAL_HEALTH = 50.0
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_tttca"]
+script = ExtResource("2_oaj5l")
+TotalHealth = 50.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ayjak"]
 resource_local_to_scene = true
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_tttca"]
+
 [node name="EnemyTurret" type="Node3D"]
-script = ExtResource("1_whwp8")
-HEALTH_COMPONENT = SubResource("Resource_yvio1")
-
-[node name="Weapon" parent="." instance=ExtResource("1_182t2")]
-SHELL_DAMAGE_OVERRIDE = 30.0
-
-[node name="HitScanner" type="StaticBody3D" parent="."]
-collision_layer = 3
-collision_mask = 3
-script = ExtResource("4_7ct47")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HitScanner"]
-shape = SubResource("SphereShape3D_tttca")
-
-[node name="FireRateTimer" type="Node" parent="."]
-script = ExtResource("5_ov00j")
-FIRE_RATE = 150.0
+script = ExtResource("1_3cpue")
+Health = SubResource("Resource_ax2to")
 
 [node name="DetectionArea" type="Area3D" parent="."]
 collision_layer = 4
@@ -42,3 +27,17 @@ monitorable = false
 
 [node name="DetectionAreaShape" type="CollisionShape3D" parent="DetectionArea"]
 shape = SubResource("SphereShape3D_ayjak")
+
+[node name="HitScanner" type="StaticBody3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_t6uuo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitScanner"]
+shape = SubResource("SphereShape3D_tttca")
+
+[node name="Turret" parent="." instance=ExtResource("1_182t2")]
+
+[node name="FireRateTimer" type="Node" parent="."]
+script = ExtResource("3_m0wuv")
+FireRate = 150.0
