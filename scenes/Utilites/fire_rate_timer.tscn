@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0c8dpsat3ffu"]
+
+[ext_resource type="Script" path="res://scripts/FireRateTimer.cs" id="1_abrxi"]
+
+[node name="FireRateTimer" type="Node"]
+script = ExtResource("1_abrxi")

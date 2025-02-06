@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm2b54qhcq1r0"]
+
+[ext_resource type="PackedScene" uid="uid://covww25y3n676" path="res://models/robot.gltf" id="1_kqcvs"]
+
+[node name="Robot" instance=ExtResource("1_kqcvs")]
