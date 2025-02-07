@@ -6,6 +6,10 @@ public partial class EnemyTurret : Node3D
 {
 	[Export]
 	private float DetectionRange = 20;
+	[Export(PropertyHint.Range, "0,180,0.001,degrees")]
+	private float MaximumFiringAngle = 15;
+	[Export]
+	private float RotationSpeedOverride = 0.0f;
 	[Export]
 	public HealthComponent Health;
 	[ExportCategory("Objects Raycast")]
@@ -13,7 +17,7 @@ public partial class EnemyTurret : Node3D
 	private uint RaycastCollisionMask = 2;
 
 	// @onready
-	private Weapon TurretWeapon;
+	private Turret TurretWeapon;
 	private HitScanner HitScanner;
 	private FireRateTimer FireRate;
 	private Area3D DetectionArea;
@@ -61,6 +65,8 @@ public partial class EnemyTurret : Node3D
 		DetectionArea.BodyExited += OnDetectionAreaBodyExited;
 
 		DetectionAreaShape.Radius = DetectionRange;
+
+		TurretWeapon.OverrideRotationSpeed(RotationSpeedOverride);
 	}
 
 
@@ -71,8 +77,8 @@ public partial class EnemyTurret : Node3D
 			FireRate.Deactivate();
 			return;
 		}
-		TurretWeapon.RotateTo((float)delta, _target.GlobalPosition);
-		if (!Blocked())
+		TurretWeapon.RotateTo(_target.GlobalPosition);
+		if (!Blocked() && IsClose())
 		{
 			FireRate.Activate();
 		}
@@ -80,6 +86,12 @@ public partial class EnemyTurret : Node3D
 		{
 			FireRate.Deactivate();
 		}
+	}
+
+	// Assume target is not null
+	private Vector3 VectorToTarget()
+	{
+		return (_target.GlobalPosition - GlobalPosition).Normalized();
 	}
 
 	private bool Blocked()
@@ -91,12 +103,17 @@ public partial class EnemyTurret : Node3D
 		var collision = space.IntersectRay(query);
 		if (collision.Count != 0)
 		{
-            if (collision["collider"].AsGodotObject() is not Player player)
-            {
-                return true;
-            }
-        }
+			if (collision["collider"].AsGodotObject() is not Player player)
+			{
+				return true;
+			}
+		}
 		return false;
+	}
+
+	private bool IsClose()
+	{
+		return TurretWeapon.GetForwardDirection().AngleTo(VectorToTarget()) <= Mathf.DegToRad(MaximumFiringAngle);
 	}
 
 	private void OnHealthDepleted()

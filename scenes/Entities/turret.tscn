@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/Weapons/Turret.cs" id="1_oqiyh"]
 [ext_resource type="PackedScene" uid="uid://bep8a5frklmku" path="res://scenes/Entities/shell.tscn" id="2_3pqj8"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_7vatr"]
+[sub_resource type="BoxMesh" id="BoxMesh_dpfaj"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_dekxe"]
 lightmap_size_hint = Vector2i(12, 15)
@@ -14,7 +14,8 @@ script = ExtResource("1_oqiyh")
 ShellClass = ExtResource("2_3pqj8")
 
 [node name="Base" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_7vatr")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_dpfaj")
 skeleton = NodePath("")
 
 [node name="PitchNode" type="Node3D" parent="Base"]

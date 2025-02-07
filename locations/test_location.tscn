@@ -143,19 +143,24 @@ shadow_enabled = true
 [node name="EnemyTurret" parent="." instance=ExtResource("4_h2clu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.0219, 1.36934, 33.3108)
 DetectionRange = 100.0
+RotationSpeedOverride = 1.0
 Health = SubResource("Resource_kwmhq")
 
 [node name="EnemyTurret2" parent="." instance=ExtResource("4_h2clu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.9218, 1.3545, -32.4423)
 DetectionRange = 100.0
+RotationSpeedOverride = 1.0
 Health = SubResource("Resource_b34pc")
 
 [node name="EnemyTurret3" parent="." instance=ExtResource("4_h2clu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.3584, 2.38269, -37.8687)
 DetectionRange = 100.0
+RotationSpeedOverride = 1.0
 Health = SubResource("Resource_atq74")
 
 [node name="EnemyTurret4" parent="." instance=ExtResource("4_h2clu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.8669, 1.61354, 25.6038)
 DetectionRange = 50.0
+MaximumFiringAngle = 10.0
+RotationSpeedOverride = 1.0
 Health = SubResource("Resource_2w6e5")

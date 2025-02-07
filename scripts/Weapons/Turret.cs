@@ -36,6 +36,7 @@ public partial class Turret : Weapon
 	private MeshInstance3D Cannon;
 	private Node3D Spawnpoint;
 
+	private float _rotationSpeed = 0.0f;
 	private float _horizontalRotation = 0;
 	private float _cannonVerticalRotation = 0;
 	private bool _rotationRequested = false;
@@ -63,6 +64,8 @@ public partial class Turret : Weapon
 		{
 			GD.PushError("Missing spawnpoint node! ", Name);
 		}
+
+		_rotationSpeed = RotationSpeed;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -72,8 +75,8 @@ public partial class Turret : Weapon
 			return;
 		}
 
-		GlobalRotation = GlobalRotation with { Y = Mathf.RotateToward(GlobalRotation.Y, _horizontalRotation, (float)delta) };
-		PitchNode.Rotation = PitchNode.Rotation with { X = Mathf.RotateToward(PitchNode.Rotation.X, _cannonVerticalRotation, (float)delta) };
+		GlobalRotation = GlobalRotation with { Y = Mathf.RotateToward(GlobalRotation.Y, _horizontalRotation, _rotationSpeed * (float)delta) };
+		PitchNode.Rotation = PitchNode.Rotation with { X = Mathf.RotateToward(PitchNode.Rotation.X, _cannonVerticalRotation, _rotationSpeed * (float)delta) };
 		if (Mathf.IsEqualApprox(GlobalRotation.Y, _horizontalRotation) && Mathf.IsEqualApprox(PitchNode.Rotation.X, _cannonVerticalRotation))
 		{
 			_rotationRequested = false;
@@ -93,7 +96,7 @@ public partial class Turret : Weapon
 		// TODO - add effects, sound
 	}
 
-	public override void RotateTo(float delta, Vector3 targetPosition)
+	public void RotateTo(Vector3 targetPosition)
 	{
 		var horizontalTarget = targetPosition with { Y = Spawnpoint.GlobalPosition.Y };
 		var direction = Spawnpoint.GlobalPosition.DirectionTo(horizontalTarget);
@@ -107,6 +110,16 @@ public partial class Turret : Weapon
 
 	public Vector3 GetForwardDirection()
 	{
-		return -Cannon.Transform.Basis.Z;
+		return -GlobalBasis.Z with { Y = -PitchNode.Transform.Basis.Z.Y };
+	}
+
+	// If speed is near zero, no override
+	public void OverrideRotationSpeed(float speed)
+	{
+		if (Mathf.IsZeroApprox(speed))
+		{
+			return;
+		}
+		_rotationSpeed = speed;
 	}
 }
