@@ -14,7 +14,6 @@ script = ExtResource("1_oqiyh")
 ShellClass = ExtResource("2_3pqj8")
 
 [node name="Base" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_dpfaj")
 skeleton = NodePath("")
 

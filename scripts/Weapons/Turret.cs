@@ -8,9 +8,13 @@ public partial class Turret : Weapon
 	public delegate void RotationCompleteEventHandler();
 
 	[Export]
-	private float ShellDamageOverride = 0;
+	private float ShellDamage = 0;
 	[Export]
-	private float RotationSpeed = 5;
+	public float ShellSpeed { get; private set; } = 0;
+	[Export]
+	private float HorizontalRotationSpeed = 3;
+	[Export]
+	private float VerticalRotationSpeed = 3;
 	[Export]
 	private PackedScene ShellClass;
 
@@ -36,9 +40,12 @@ public partial class Turret : Weapon
 	private MeshInstance3D Cannon;
 	private Node3D Spawnpoint;
 
-	private float _rotationSpeed = 0.0f;
-	private float _horizontalRotation = 0;
-	private float _cannonVerticalRotation = 0;
+	private float _horizontalRotationSpeed = 0.0f;
+	private float _verticalRotationSpeed = 0.0f;
+
+	public float HorizontalRotation { get; private set; } = 0;
+	public float CannonVerticalRotation { get; private set; } = 0;
+
 	private bool _rotationRequested = false;
 	private Shell _shellInstance;
 
@@ -65,7 +72,8 @@ public partial class Turret : Weapon
 			GD.PushError("Missing spawnpoint node! ", Name);
 		}
 
-		_rotationSpeed = RotationSpeed;
+		_horizontalRotationSpeed = HorizontalRotationSpeed;
+		_verticalRotationSpeed = VerticalRotationSpeed;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -75,9 +83,9 @@ public partial class Turret : Weapon
 			return;
 		}
 
-		GlobalRotation = GlobalRotation with { Y = Mathf.RotateToward(GlobalRotation.Y, _horizontalRotation, _rotationSpeed * (float)delta) };
-		PitchNode.Rotation = PitchNode.Rotation with { X = Mathf.RotateToward(PitchNode.Rotation.X, _cannonVerticalRotation, _rotationSpeed * (float)delta) };
-		if (Mathf.IsEqualApprox(GlobalRotation.Y, _horizontalRotation) && Mathf.IsEqualApprox(PitchNode.Rotation.X, _cannonVerticalRotation))
+		GlobalRotation = GlobalRotation with { Y = Mathf.RotateToward(GlobalRotation.Y, HorizontalRotation, _horizontalRotationSpeed * (float)delta) };
+		PitchNode.Rotation = PitchNode.Rotation with { X = Mathf.RotateToward(PitchNode.Rotation.X, CannonVerticalRotation, _verticalRotationSpeed * (float)delta) };
+		if (Mathf.IsEqualApprox(GlobalRotation.Y, HorizontalRotation) && Mathf.IsEqualApprox(PitchNode.Rotation.X, CannonVerticalRotation))
 		{
 			_rotationRequested = false;
 		}
@@ -86,9 +94,13 @@ public partial class Turret : Weapon
 	public override void Shoot()
 	{
 		_shellInstance = (Shell)ShellClass.Instantiate();
-		if (!Mathf.IsZeroApprox(ShellDamageOverride))
+		if (!Mathf.IsZeroApprox(ShellDamage))
 		{
-			_shellInstance.OverrideShellDamage(ShellDamageOverride);
+			_shellInstance.OverrideShellDamage(ShellDamage);
+		}
+		if (!Mathf.IsZeroApprox(ShellSpeed))
+		{
+			_shellInstance.OverrideShellSpeed(ShellSpeed);
 		}
 		_shellInstance.Position = Spawnpoint.GlobalPosition;
 		_shellInstance.Transform = _shellInstance.Transform with { Basis = Spawnpoint.GlobalTransform.Basis };
@@ -100,10 +112,10 @@ public partial class Turret : Weapon
 	{
 		var horizontalTarget = targetPosition with { Y = Spawnpoint.GlobalPosition.Y };
 		var direction = Spawnpoint.GlobalPosition.DirectionTo(horizontalTarget);
-		_horizontalRotation = direction.SignedAngleTo(Vector3.Forward, Vector3.Down);
+		HorizontalRotation = direction.SignedAngleTo(Vector3.Forward, Vector3.Down);
 
 		direction = -(PitchNode.GlobalPosition - targetPosition).Normalized();
-		_cannonVerticalRotation = Mathf.Atan2(direction.Y, Mathf.Sqrt(direction.Z * direction.Z + direction.X * direction.X));
+		CannonVerticalRotation = Mathf.Atan2(direction.Y, Mathf.Sqrt(direction.Z * direction.Z + direction.X * direction.X));
 
 		_rotationRequested = true;
 	}
@@ -111,15 +123,5 @@ public partial class Turret : Weapon
 	public Vector3 GetForwardDirection()
 	{
 		return -GlobalBasis.Z with { Y = -PitchNode.Transform.Basis.Z.Y };
-	}
-
-	// If speed is near zero, no override
-	public void OverrideRotationSpeed(float speed)
-	{
-		if (Mathf.IsZeroApprox(speed))
-		{
-			return;
-		}
-		_rotationSpeed = speed;
 	}
 }

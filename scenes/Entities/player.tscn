@@ -27,14 +27,12 @@ script = ExtResource("1_c3w7s")
 Weaponry = NodePath("PlayerMesh/Turret")
 Health = SubResource("Resource_57el8")
 TiltUpperLimit = 0.0
-YawSensitivity = 1.0
-PitchSensitivity = 1.0
 
 [node name="PlayerMesh" parent="." instance=ExtResource("4_cmg58")]
 
 [node name="Turret" parent="PlayerMesh" instance=ExtResource("3_t1l53")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.32869)
-RotationSpeed = 10.0
+ShellSpeed = 40.0
 
 [node name="FireRateTimer" type="Node" parent="PlayerMesh"]
 script = ExtResource("3_h4buu")
