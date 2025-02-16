@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbkfndthdsqpg"]
+
+[ext_resource type="PackedScene" uid="uid://ddoglg28fwb8h" path="res://models/weapon/tour_guides/tour_guide_1_1.gltf" id="1_bfui0"]
+
+[node name="tour_guide_1_1" instance=ExtResource("1_bfui0")]
+
+[node name="Empty" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 2.45, 0)
