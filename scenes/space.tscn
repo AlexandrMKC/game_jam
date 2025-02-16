@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bn380b6mm0tpx"]
+
+[ext_resource type="Shader" path="res://shaders/space.gdshader" id="1_1a6f2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x1yhg"]
+shader = ExtResource("1_1a6f2")
+shader_parameter/sky_color = Color(0.0875944, 0.0946186, 0.12562, 1)
+shader_parameter/star_color = Color(1, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_e7xxa"]
+sky_material = SubResource("ShaderMaterial_x1yhg")
+
+[sub_resource type="Environment" id="Environment_8jc82"]
+background_mode = 2
+sky = SubResource("Sky_e7xxa")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 5.0
+
+[node name="Space" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8jc82")

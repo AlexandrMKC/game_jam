@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" path="res://scenes/Entities/player.tscn" id="1_2ua3r"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_nki3u"]
-[ext_resource type="PackedScene" uid="uid://vshmqa8o18m5" path="res://locations/test_location.tscn" id="2_6fkko"]
+[ext_resource type="PackedScene" uid="uid://bn380b6mm0tpx" path="res://scenes/space.tscn" id="4_6sk1m"]
 [ext_resource type="Texture2D" uid="uid://beklhmhwrqy6y" path="res://models/UI/crosshair.png" id="4_eouho"]
 [ext_resource type="Script" path="res://scripts/Components/HealthComponent.cs" id="4_hy8th"]
 
@@ -16,12 +16,11 @@ script = ExtResource("1_nki3u")
 
 [node name="World" type="Node3D" parent="."]
 
-[node name="TestLocation" parent="World" instance=ExtResource("2_6fkko")]
-
 [node name="Player" parent="World" instance=ExtResource("1_2ua3r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.1867, 20, 80.7312)
 Health = SubResource("Resource_kgbas")
 MinimumHeight = 1.0
+
+[node name="Space" parent="World" instance=ExtResource("4_6sk1m")]
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
