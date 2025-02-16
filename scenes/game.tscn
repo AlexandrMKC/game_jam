@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvksxwjbv15cn"]
+[gd_scene load_steps=9 format=3 uid="uid://dvksxwjbv15cn"]
 
-[ext_resource type="PackedScene" path="res://scenes/Entities/player.tscn" id="1_2ua3r"]
+[ext_resource type="PackedScene" uid="uid://bo134h43brsol" path="res://scenes/Entities/player.tscn" id="1_2ua3r"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_nki3u"]
 [ext_resource type="PackedScene" uid="uid://bn380b6mm0tpx" path="res://scenes/space.tscn" id="4_6sk1m"]
 [ext_resource type="Texture2D" uid="uid://beklhmhwrqy6y" path="res://models/UI/crosshair.png" id="4_eouho"]
@@ -10,6 +10,12 @@
 resource_local_to_scene = true
 script = ExtResource("4_hy8th")
 TotalHealth = 200.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_7c2o2"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_rkdee"]
+radius = 11.954
+height = 12.013
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_nki3u")
@@ -21,6 +27,14 @@ Health = SubResource("Resource_kgbas")
 MinimumHeight = 1.0
 
 [node name="Space" parent="World" instance=ExtResource("4_6sk1m")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.9751)
+mesh = SubResource("BoxMesh_7c2o2")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5888, 0, 0)
+mesh = SubResource("SphereMesh_rkdee")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

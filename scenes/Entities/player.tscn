@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://vyrwgd2taex0"]
+[gd_scene load_steps=11 format=3 uid="uid://bo134h43brsol"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_c3w7s"]
 [ext_resource type="Script" path="res://scripts/Components/HealthComponent.cs" id="2_iurf5"]
@@ -26,7 +26,8 @@ collision_mask = 2
 script = ExtResource("1_c3w7s")
 Weaponry = NodePath("PlayerMesh/Turret")
 Health = SubResource("Resource_57el8")
-TiltUpperLimit = 0.0
+TiltUpperLimit = 45.0
+TiltLowerLimit = -45.0
 
 [node name="PlayerMesh" parent="." instance=ExtResource("4_cmg58")]
 
@@ -45,7 +46,7 @@ transform = Transform3D(1, 0, 0, 0, 0.99997, 0, 0, 0, 0.99997, 0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 1.2, -1)
 
 [node name="Camera3D" type="Camera3D" parent="CameraController/PitchNode"]
-transform = Transform3D(1, 2.51222e-15, -2.51222e-15, 0, 0.707128, 0.707128, 0, -0.707128, 0.707128, 0, 6, 5)
+transform = Transform3D(1, 2.51222e-15, -2.51222e-15, 0, 0.707128, 0.707128, 0, -0.707128, 0.707128, 0, 6, 3.5)
 
 [node name="DEBUG" type="MeshInstance3D" parent="CameraController/PitchNode/Camera3D"]
 transform = Transform3D(1, 0, 3.55271e-15, 0, 0.707086, -0.707086, 0, 0.707086, 0.707086, 0, 0, 0)
