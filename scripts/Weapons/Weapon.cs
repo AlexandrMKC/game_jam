@@ -9,9 +9,5 @@ public partial class Weapon : Node3D
         return;
     }
 
-    public virtual void RotateTo(float delta, Vector3 targetPosition)
-    {
-        return;
-    }
 }
 

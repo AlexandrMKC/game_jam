@@ -21,6 +21,7 @@ script = ExtResource("1_nki3u")
 [node name="Player" parent="World" instance=ExtResource("1_2ua3r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.1867, 20, 80.7312)
 Health = SubResource("Resource_kgbas")
+MinimumHeight = 1.0
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

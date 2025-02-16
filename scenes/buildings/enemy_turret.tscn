@@ -37,6 +37,7 @@ script = ExtResource("1_t6uuo")
 shape = SubResource("SphereShape3D_tttca")
 
 [node name="Turret" parent="." instance=ExtResource("1_182t2")]
+ShellSpeed = 40.0
 
 [node name="FireRateTimer" type="Node" parent="."]
 script = ExtResource("3_m0wuv")

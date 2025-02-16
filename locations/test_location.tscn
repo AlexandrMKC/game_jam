@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://vshmqa8o18m5"]
+[gd_scene load_steps=26 format=3 uid="uid://vshmqa8o18m5"]
 
 [ext_resource type="PackedScene" uid="uid://b4o5jrksm773t" path="res://scenes/buildings/main_building.tscn" id="1_rllmx"]
 [ext_resource type="Script" path="res://scripts/Components/HealthComponent.cs" id="2_w3xqc"]
@@ -95,6 +95,9 @@ resource_local_to_scene = true
 script = ExtResource("2_w3xqc")
 TotalHealth = 50.0
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_sb8xf"]
+resource_local_to_scene = true
+
 [node name="TestLocation" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -142,20 +145,26 @@ shadow_enabled = true
 
 [node name="EnemyTurret" parent="." instance=ExtResource("4_h2clu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.0219, 1.36934, 33.3108)
-DetectionRange = 100.0
+DetectionRange = 10.0
 Health = SubResource("Resource_kwmhq")
 
 [node name="EnemyTurret2" parent="." instance=ExtResource("4_h2clu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.9218, 1.3545, -32.4423)
-DetectionRange = 100.0
+DetectionRange = 10.0
 Health = SubResource("Resource_b34pc")
 
 [node name="EnemyTurret3" parent="." instance=ExtResource("4_h2clu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.3584, 2.38269, -37.8687)
-DetectionRange = 100.0
+DetectionRange = 10.0
 Health = SubResource("Resource_atq74")
 
 [node name="EnemyTurret4" parent="." instance=ExtResource("4_h2clu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.8669, 1.61354, 25.6038)
 DetectionRange = 50.0
+MaximumFiringAngle = 10.0
 Health = SubResource("Resource_2w6e5")
+
+[node name="DetectionAreaShape" parent="EnemyTurret4/DetectionArea" index="0"]
+shape = SubResource("SphereShape3D_sb8xf")
+
+[editable path="EnemyTurret4"]

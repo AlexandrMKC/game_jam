@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Net;
 
 [GlobalClass]
 public partial class Player : CharacterBody3D, IHittable
@@ -40,14 +39,14 @@ public partial class Player : CharacterBody3D, IHittable
 	private float TiltLowerLimit = -90;
 
 	// Maybe precompute later
-	private float _upperLimit => Mathf.DegToRad(TiltUpperLimit);
-	private float _lowerLimit => Mathf.DegToRad(TiltLowerLimit);
+	private float _upperLimit;
+	private float _lowerLimit;
 
 	[ExportGroup("Input")]
 	[Export]
-	private float YawSensitivity = 0.3f;
+	private float YawSensitivity = 0.7f;
 	[Export]
-	private float PitchSensitivity = 0.3f;
+	private float PitchSensitivity = 0.7f;
 
 	[ExportGroup("Movement")]
 	[Export]
@@ -69,17 +68,19 @@ public partial class Player : CharacterBody3D, IHittable
 	[Export]
 	private float MaximumHeight = 50.0f;
 
+	private float _realYawSensitivity;
+	private float _realPitchSensitivity;
+
 	private Vector3 _mainMovement = Vector3.Zero;
 	private float _verticalMovement = 0.0f;
 
 	private Vector2 _rotationInput = Vector2.Zero;
-	private Vector3 _playerRotation = Vector3.Zero;
-	private Vector3 _cameraRotation = Vector3.Zero;
 
 	private float _currentSpeedMultiplier = 1;
 	private float CurrentSpeed => BaseSpeed * _currentSpeedMultiplier;
 
 	private float _zoom = 1.0f;
+
 	public override void _Ready()
 	{
 		PlayerMesh = GetNode<Node3D>("PlayerMesh");
@@ -107,25 +108,39 @@ public partial class Player : CharacterBody3D, IHittable
 		{
 			GD.PushError("Missing fire rate timer! ", Name);
 		}
+
 		if (Weaponry == null)
 		{
 			GD.PushError("Missing weapons! ", Name);
 		}
-
 		if (Health == null)
 		{
 			GD.PushError("Missing Health! ", Name);
 		}
 
+		_cameraInitialPitch = Camera.RotationDegrees.X;
+
+		_realYawSensitivity = YawSensitivity / 1000f;
+		_realPitchSensitivity = PitchSensitivity / 1000f;
+
+		_upperLimit = Mathf.DegToRad(TiltUpperLimit - _cameraInitialPitch);
+		_lowerLimit = Mathf.DegToRad(TiltLowerLimit - _cameraInitialPitch);
+
 		Health.HealthDepleted += OnHealthDepleted;
 		FireRate.Fire += Weaponry.Shoot;
 	}
 
+	public override void _Process(double delta)
+	{
+		UpdateCamera();
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
-		UpdateCamera((float)delta);
-
-		Weaponry.RotateTo((float)delta, RaycastFromMouse());
+		if (Weaponry is Turret turret)
+		{
+			turret.RotateTo(RaycastFromMouse());
+		}
 
 		HorizontalMove((float)delta);
 		VerticalMove((float)delta);
@@ -139,8 +154,8 @@ public partial class Player : CharacterBody3D, IHittable
 		if (@event is InputEventMouseMotion mouseMotion)
 		{
 			_rotationInput = -mouseMotion.Relative;
-			_rotationInput.X *= YawSensitivity;
-			_rotationInput.Y *= PitchSensitivity;
+			_rotationInput.X *= _realYawSensitivity;
+			_rotationInput.Y *= _realPitchSensitivity;
 		}
 
 		Shoot(@event);
@@ -221,10 +236,13 @@ public partial class Player : CharacterBody3D, IHittable
 		Position = Position with { Y = Mathf.Clamp(Position.Y, MinimumHeight, MaximumHeight) };
 	}
 
-	private void UpdateCamera(float delta)
+	private void UpdateCamera()
 	{
-		RotateObjectLocal(Vector3.Up, _rotationInput.X * delta);
-		PitchNode.RotateObjectLocal(Vector3.Right, _rotationInput.Y * delta);
+		RotateObjectLocal(Vector3.Up, _rotationInput.X);
+		PitchNode.RotateObjectLocal(Vector3.Right, _rotationInput.Y);
+
+		PitchNode.Rotation = PitchNode.Rotation with { X = Mathf.Clamp(PitchNode.Rotation.X, _lowerLimit, _upperLimit) };
+
 		PitchNode.Scale = PitchNode.Scale.Lerp(Vector3.One * _zoom, ZoomSpeed);
 
 		_rotationInput = Vector2.Zero;
