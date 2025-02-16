@@ -1,0 +1,41 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://063p43kwocnj"]
+
+[ext_resource type="FontFile" uid="uid://cjqbl3itflrk5" path="res://style/fonts/ShareTechMonoRegular.ttf" id="1_awdi6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kec4f"]
+bg_color = Color(0.537255, 0.698039, 0.94902, 0.258824)
+border_color = Color(1, 1, 1, 0)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wb57v"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.261033, 0.773888, 0.94489, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_luk43"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.170543, 0.642035, 0.999994, 1)
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6iy5"]
+bg_color = Color(0.498039, 0.780392, 1, 1)
+
+[resource]
+default_font = ExtResource("1_awdi6")
+default_font_size = 0
+Label/font_sizes/font_size = 28
+Label/fonts/font = ExtResource("1_awdi6")
+Panel/styles/panel = SubResource("StyleBoxFlat_kec4f")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_wb57v")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_luk43")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_m6iy5")
