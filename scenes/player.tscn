@@ -58,6 +58,7 @@ shape = SubResource("BoxShape3D_ef2y7")
 
 [node name="Turret" parent="plane" instance=ExtResource("3_t1l53")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.32869)
+visible = false
 ShellSpeed = 40.0
 
 [node name="FireRateTimer" type="Node" parent="plane"]
