@@ -1,20 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://7x5c7s1g2y4a"]
+[gd_scene load_steps=3 format=3 uid="uid://7x5c7s1g2y4a"]
 
 [ext_resource type="PackedScene" uid="uid://cedkht88122qr" path="res://models/celestial_bodies/roc1.gltf" id="1_sj0hq"]
+[ext_resource type="PackedScene" uid="uid://bw3chae8hbm8e" path="res://models/celestial_bodies/roc2.gltf" id="2_2gwex"]
 
 [node name="test_location" type="Node3D"]
 
 [node name="roc1" parent="." instance=ExtResource("1_sj0hq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, -10.2281, 38.8464)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 21)
 
 [node name="roc2" parent="." instance=ExtResource("1_sj0hq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 16.3775, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 2, 0)
 
 [node name="roc3" parent="." instance=ExtResource("1_sj0hq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.5781, -51.2134)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17.9067)
 
 [node name="roc4" parent="." instance=ExtResource("1_sj0hq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.9627, 17.9689, -13.1022)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 2, 0)
 
-[node name="roc5" parent="." instance=ExtResource("1_sj0hq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.168, -33.0582, 0)
+[node name="roc5" parent="." instance=ExtResource("2_2gwex")]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 14, 0, 54)
+
+[node name="roc6" parent="." instance=ExtResource("2_2gwex")]
+transform = Transform3D(0.280619, -0.479356, 0.831547, 0.442028, 0.833559, 0.331347, -0.851977, 0.274585, 0.445801, -28.7921, 0, -36.5903)
