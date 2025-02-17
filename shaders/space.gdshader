@@ -12,8 +12,17 @@ float Star(vec2 uv){
 	return pow(star, 3);
 }
 
+float test(float x){
+	if(x>0.5){
+		return 1.0 - x;
+	}
+	return x;
+}
+
 void sky() {
-	vec2 uv = fract(EYEDIR.xz*star_height);
+	float x = fract(EYEDIR.x*5.0);
+	float y = fract(EYEDIR.y*5.0);
+	vec2 uv = vec2(x,y);
 	COLOR = sky_color;
 	
 	COLOR += Star(uv);

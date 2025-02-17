@@ -33,7 +33,7 @@ TiltLowerLimit = -45.0
 
 [node name="Turret" parent="PlayerMesh" instance=ExtResource("3_t1l53")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.32869)
-ShellSpeed = 40.0
+ShellSpeed = 300.0
 
 [node name="FireRateTimer" type="Node" parent="PlayerMesh"]
 script = ExtResource("3_h4buu")
@@ -64,3 +64,11 @@ mesh = SubResource("BoxMesh_p8bpe")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_ef2y7")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.30235)
+light_energy = 20.0
+light_indirect_energy = 4.271
+light_volumetric_fog_energy = 4.768
+spot_range = 238.052
+spot_angle = 18.7806
