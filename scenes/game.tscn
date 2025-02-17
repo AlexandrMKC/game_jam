@@ -1,28 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://dvksxwjbv15cn"]
+[gd_scene load_steps=8 format=3 uid="uid://dvksxwjbv15cn"]
 
 [ext_resource type="PackedScene" uid="uid://bo134h43brsol" path="res://scenes/Entities/player.tscn" id="1_2ua3r"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_nki3u"]
 [ext_resource type="PackedScene" uid="uid://bn380b6mm0tpx" path="res://scenes/space.tscn" id="4_6sk1m"]
 [ext_resource type="Texture2D" uid="uid://beklhmhwrqy6y" path="res://models/UI/crosshair.png" id="4_eouho"]
 [ext_resource type="Script" path="res://scripts/Components/HealthComponent.cs" id="4_hy8th"]
+[ext_resource type="PackedScene" uid="uid://7x5c7s1g2y4a" path="res://locations/test_location.tscn" id="5_f5gjp"]
 
 [sub_resource type="Resource" id="Resource_kgbas"]
 resource_local_to_scene = true
 script = ExtResource("4_hy8th")
 TotalHealth = 200.0
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_e7km8"]
-radius = 10.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4fch6"]
-albedo_color = Color(0.205117, 0.205117, 0.205117, 1)
-emission = Color(0.236332, 0.744106, 0.931665, 1)
-emission_energy_multiplier = 0.78
-
-[sub_resource type="SphereMesh" id="SphereMesh_tfc8g"]
-material = SubResource("StandardMaterial3D_4fch6")
-radius = 10.0
-height = 20.0
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_nki3u")
@@ -33,17 +21,9 @@ script = ExtResource("1_nki3u")
 Health = SubResource("Resource_kgbas")
 MinimumHeight = 1.0
 
-[node name="body" type="StaticBody3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50.2314)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/body"]
-shape = SubResource("SphereShape3D_e7km8")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/body/CollisionShape3D"]
-mesh = SubResource("SphereMesh_tfc8g")
-skeleton = NodePath("../..")
-
 [node name="Space" parent="World" instance=ExtResource("4_6sk1m")]
+
+[node name="test_location" parent="World" instance=ExtResource("5_f5gjp")]
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

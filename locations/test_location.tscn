@@ -1,170 +1,20 @@
-[gd_scene load_steps=26 format=3 uid="uid://vshmqa8o18m5"]
+[gd_scene load_steps=2 format=3 uid="uid://7x5c7s1g2y4a"]
 
-[ext_resource type="PackedScene" uid="uid://b4o5jrksm773t" path="res://scenes/buildings/main_building.tscn" id="1_rllmx"]
-[ext_resource type="Script" path="res://scripts/Components/HealthComponent.cs" id="2_w3xqc"]
-[ext_resource type="Script" path="res://scripts/Components/ShieldComponent.cs" id="3_iwkfh"]
-[ext_resource type="PackedScene" uid="uid://b5b4cd6vppgne" path="res://scenes/buildings/shield_building.tscn" id="3_v3f3m"]
-[ext_resource type="PackedScene" uid="uid://cxjt12mbnuy81" path="res://scenes/buildings/enemy_turret.tscn" id="4_h2clu"]
-[ext_resource type="PackedScene" uid="uid://eta0cidyx2om" path="res://scenes/buildings/building.tscn" id="5_o431o"]
+[ext_resource type="PackedScene" uid="uid://cedkht88122qr" path="res://models/celestial_bodies/roc1.gltf" id="1_sj0hq"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aas5o"]
-albedo_color = Color(0.259294, 0.259294, 0.259294, 1)
+[node name="test_location" type="Node3D"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_5awla"]
-size = Vector2(200, 200)
+[node name="roc1" parent="." instance=ExtResource("1_sj0hq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, -10.2281, 38.8464)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_6nvt1"]
-data = PackedVector3Array(100, 0, 100, -100, 0, 100, 100, 0, -100, -100, 0, 100, -100, 0, -100, 100, 0, -100)
+[node name="roc2" parent="." instance=ExtResource("1_sj0hq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 16.3775, 0)
 
-[sub_resource type="Resource" id="Resource_r3n8q"]
-resource_local_to_scene = true
-script = ExtResource("2_w3xqc")
-TotalHealth = 200.0
+[node name="roc3" parent="." instance=ExtResource("1_sj0hq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.5781, -51.2134)
 
-[sub_resource type="Resource" id="Resource_igogh"]
-resource_local_to_scene = true
-script = ExtResource("3_iwkfh")
-TotalShield = 1.0
-Invincible = true
+[node name="roc4" parent="." instance=ExtResource("1_sj0hq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.9627, 17.9689, -13.1022)
 
-[sub_resource type="Resource" id="Resource_3llkf"]
-resource_local_to_scene = true
-script = ExtResource("2_w3xqc")
-TotalHealth = 100.0
-
-[sub_resource type="Resource" id="Resource_gwwn1"]
-resource_local_to_scene = true
-script = ExtResource("2_w3xqc")
-TotalHealth = 100.0
-
-[sub_resource type="Resource" id="Resource_k1yhx"]
-resource_local_to_scene = true
-script = ExtResource("3_iwkfh")
-TotalShield = 100.0
-Invincible = false
-
-[sub_resource type="Resource" id="Resource_5o31j"]
-resource_local_to_scene = true
-script = ExtResource("2_w3xqc")
-TotalHealth = 100.0
-
-[sub_resource type="Resource" id="Resource_yn363"]
-resource_local_to_scene = true
-script = ExtResource("3_iwkfh")
-TotalShield = 100.0
-Invincible = false
-
-[sub_resource type="Resource" id="Resource_pmiad"]
-resource_local_to_scene = true
-script = ExtResource("2_w3xqc")
-TotalHealth = 100.0
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bostc"]
-
-[sub_resource type="Sky" id="Sky_vbt7t"]
-sky_material = SubResource("ProceduralSkyMaterial_bostc")
-
-[sub_resource type="Environment" id="Environment_3wuw8"]
-background_mode = 1
-background_color = Color(0.575163, 0.838897, 1, 1)
-background_energy_multiplier = 1.49
-sky = SubResource("Sky_vbt7t")
-sky_rotation = Vector3(0, -0.235619, 0)
-ambient_light_source = 3
-ambient_light_color = Color(0.0881476, 0.55342, 0.971353, 1)
-ambient_light_energy = 5.06
-reflected_light_source = 2
-
-[sub_resource type="Resource" id="Resource_kwmhq"]
-resource_local_to_scene = true
-script = ExtResource("2_w3xqc")
-TotalHealth = 50.0
-
-[sub_resource type="Resource" id="Resource_b34pc"]
-resource_local_to_scene = true
-script = ExtResource("2_w3xqc")
-TotalHealth = 50.0
-
-[sub_resource type="Resource" id="Resource_atq74"]
-resource_local_to_scene = true
-script = ExtResource("2_w3xqc")
-TotalHealth = 50.0
-
-[sub_resource type="Resource" id="Resource_2w6e5"]
-resource_local_to_scene = true
-script = ExtResource("2_w3xqc")
-TotalHealth = 50.0
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_sb8xf"]
-resource_local_to_scene = true
-
-[node name="TestLocation" type="Node3D"]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_aas5o")
-mesh = SubResource("PlaneMesh_5awla")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_6nvt1")
-
-[node name="MainBuilding" parent="." instance=ExtResource("1_rllmx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.4179, 0.686814, 1.83081)
-Health = SubResource("Resource_r3n8q")
-Shield = SubResource("Resource_igogh")
-
-[node name="ShieldBuilding" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("3_v3f3m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.0496, 1.264, 26.1565)
-Health = SubResource("Resource_3llkf")
-Target = NodePath("../MainBuilding")
-
-[node name="Building" parent="." instance=ExtResource("5_o431o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.08011, 0.894426, 0.582024)
-Health = SubResource("Resource_gwwn1")
-Shield = SubResource("Resource_k1yhx")
-
-[node name="Building2" parent="." instance=ExtResource("5_o431o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8568, 1.21528, 22.9142)
-Health = SubResource("Resource_5o31j")
-Shield = SubResource("Resource_yn363")
-
-[node name="ShieldBuilding2" parent="." node_paths=PackedStringArray("Target") instance=ExtResource("3_v3f3m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.14047, 1.08159, -18.6117)
-Health = SubResource("Resource_pmiad")
-Target = NodePath("../Building")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_3wuw8")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-shadow_enabled = true
-
-[node name="EnemyTurret" parent="." instance=ExtResource("4_h2clu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.0219, 1.36934, 33.3108)
-DetectionRange = 10.0
-Health = SubResource("Resource_kwmhq")
-
-[node name="EnemyTurret2" parent="." instance=ExtResource("4_h2clu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.9218, 1.3545, -32.4423)
-DetectionRange = 10.0
-Health = SubResource("Resource_b34pc")
-
-[node name="EnemyTurret3" parent="." instance=ExtResource("4_h2clu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.3584, 2.38269, -37.8687)
-DetectionRange = 10.0
-Health = SubResource("Resource_atq74")
-
-[node name="EnemyTurret4" parent="." instance=ExtResource("4_h2clu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.8669, 1.61354, 25.6038)
-DetectionRange = 50.0
-MaximumFiringAngle = 10.0
-Health = SubResource("Resource_2w6e5")
-
-[node name="DetectionAreaShape" parent="EnemyTurret4/DetectionArea" index="0"]
-shape = SubResource("SphereShape3D_sb8xf")
-
-[editable path="EnemyTurret4"]
+[node name="roc5" parent="." instance=ExtResource("1_sj0hq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.168, -33.0582, 0)
