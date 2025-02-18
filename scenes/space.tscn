@@ -6,10 +6,12 @@
 shader = ExtResource("1_1a6f2")
 shader_parameter/sky_color = Color(0, 0, 0, 1)
 shader_parameter/depth_plane = 1.0
-shader_parameter/grid_parameter = 0.491
-shader_parameter/light_hight = 1.0
-shader_parameter/deep_space = 0.05
-shader_parameter/seed_random = 123.0
+shader_parameter/grid_parameter = 0.624
+shader_parameter/star_size = 8.0
+shader_parameter/draw_deep_horizon = 0.09
+shader_parameter/draw_plane_size_random = 7.0
+shader_parameter/seed_random_1 = 123.0
+shader_parameter/seed_random_2 = 156.0
 
 [sub_resource type="Sky" id="Sky_e7xxa"]
 sky_material = SubResource("ShaderMaterial_x1yhg")
