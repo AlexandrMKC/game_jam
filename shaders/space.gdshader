@@ -1,56 +1,75 @@
 shader_type sky;
 
-uniform vec3 sky_color: source_color = vec3(0.0, 0.0, 0.0);
-uniform float depth_plane = 10.0;
-uniform float grid_parameter: hint_range(0.0, 1.0, 0.001) = 0.01;
-uniform float star_size: hint_range(0.0, 50.0, 1.0) = 1.0;
-uniform float draw_deep_horizon: hint_range(0.0, 1.0, 0.01) = 0.0;
-uniform float draw_plane_size_random: hint_range(1.0, 1000.0, 1.0) = 1.0;
 
-float Star(vec2 uv, float intensity){
+uniform vec3 sky_color: source_color = vec3(0.0, 0.0, 0.0);
+
+uniform float depth_plane: hint_range(0.0, 10.0, 0.1) = 1.0;
+uniform float star_size_parameter:hint_range(0.0, 10.0, 0.1) = 1.0;
+uniform float star_size_variation:hint_range(0.0, 1.0, 0.01) = 1.0;
+uniform float star_brightness_parameters:hint_range(0.0, 1.0, 0.1) = 0.0;
+uniform float smooth_horizon_parameter:hint_range(0.0, 1.0, 0.01) = 0.1;
+
+
+float Star(vec2 uv, float brightness){
 	float star = 0.01/(length(uv));
-	float rays = max(0.0, 1.0 - abs((uv.x*uv.y)*1000.0))*star;
-	star += rays + intensity;
-	return pow(star, 4);
+	float rays = max(0, 1.0 - abs((uv.x*uv.y)*1000.0))*star;
+	star += rays*brightness;
+	return pow(star, 3);
 }
 
+float RandomFloat(vec2 uv){
+	return fract(sin(dot(uv.xy, vec2(12.9898,78.233))) * 43758.5453123);
+}
 
-
-uniform float seed_random_1 = 123.0;
-uniform float seed_random_2 = 934.0;
-vec2 RandomVec2(vec2 id){
-	vec2 seed = fract((id) + vec2(123.13, 456.92));
-	seed += dot(seed, seed + vec2(143.13, 496.92));
-	float x = fract(seed.x*seed_random_1 + 234.56);
-	float y = fract(seed.y*seed_random_2 + 192.26);
+vec2 RandomVec2(vec2 uv){
+	vec2 seed = fract(uv*244.048);
+	seed += dot(seed, seed + vec2(488.34, 206.543));
+	float x = fract(sin(dot(seed, vec2(647,78.233))) * 4858.5453123);
+	float y = fract(sin(dot(seed, vec2(889,78.233))) * 4858.5453123);
 	return vec2(x, y);
 }
 
+
 void sky() {
+	
 	COLOR = sky_color;
 	
-	float smooth_horizont = smoothstep(draw_deep_horizon, 1.0, abs(EYEDIR.y));
+	float smooth_horizon = smoothstep(smooth_horizon_parameter, 1.0, abs(EYEDIR.y));
+	vec2 plane_coor = (EYEDIR.xz/abs(EYEDIR.y)*depth_plane);
+	vec2 uv_plane = fract(plane_coor) - 0.5;
+	vec2 uv_id = floor(plane_coor);
 	
-	float x_1 = EYEDIR.x/EYEDIR.y*depth_plane + grid_parameter/2.0;
-	float z_1 = EYEDIR.z/EYEDIR.y*depth_plane + grid_parameter/2.0;
+	//star size
+	float star_size = RandomFloat(uv_id)*star_size_variation*star_size_parameter;
 	
-	
-	float node_x_1 = abs(cos(x_1*PI/grid_parameter/2.0));
-	float node_z_1 = abs(cos(z_1*PI/grid_parameter/2.0));
-	vec2 node_id = vec2(floor(x_1/grid_parameter), floor(z_1/grid_parameter))/draw_plane_size_random;
-	vec2 nodes_uv = vec2(node_x_1, node_z_1);
-	
+	//star brightness
 	
 	
-	for(float i = -1.0; i <= 1.0; i++){
-		for(float j = -1.0; j <= 1.0; j++){
-			vec2 offset = vec2(j*grid_parameter, i*grid_parameter);
-			vec2 random_vector = RandomVec2(node_id + offset);
-			float star_size_variation = random_vector.x*70.0*star_size;
-			COLOR += Star(nodes_uv - random_vector - offset, 0.0)*smooth_horizont*star_size_variation;
+	//position stars
+	for(float x = -1.0; x <= 1.0; x++){
+		for(float y = -1.0; y <= 1.0; y++){
+			vec2 offset = vec2(x, y);
+			vec2 star_position_offset = (RandomVec2(uv_id + offset) - 0.5);
+			float star_size = RandomFloat(uv_id + offset)*star_size_variation*star_size_parameter;
+			float star_brightness =  RandomFloat(uv_id + offset + vec2(34.6, 26.5))*star_brightness_parameters;
+			
+			float color_parameter = RandomFloat(uv_id + offset + vec2(34.6, 95.5));
+			if(color_parameter <= 0.6){
+				COLOR += Star(uv_plane + star_position_offset - offset, star_brightness)*star_size*smooth_horizon;
+			}
+			
+			if(color_parameter > 0.6 && color_parameter <= 0.8){
+				COLOR.rb += Star(uv_plane + star_position_offset - offset, star_brightness)*star_size*smooth_horizon;
+			}
+			
+			if(color_parameter > 0.8 && color_parameter <= 1.0){
+				COLOR.gb += Star(uv_plane + star_position_offset - offset, star_brightness)*star_size*smooth_horizon;
+			}
+			//if(color_parameter > 0.9 && color_parameter <= 1.0){
+				////COLOR.b += 0.01;
+				//COLOR.gr += Star(uv_plane + star_position_offset - offset, star_brightness)*star_size*smooth_horizon;
+			//}
+			
 		}
 	}
-	//COLOR.rb += uv;
-	
-	//COLOR.rb += random_vector;
 }
