@@ -1,23 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://bn380b6mm0tpx"]
+[gd_scene load_steps=5 format=3 uid="uid://bn380b6mm0tpx"]
 
 [ext_resource type="Shader" path="res://shaders/space.gdshader" id="1_1a6f2"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ime0a"]
-noise_type = 5
-frequency = 0.1335
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7s4s3"]
-noise = SubResource("FastNoiseLite_ime0a")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x1yhg"]
 shader = ExtResource("1_1a6f2")
 shader_parameter/sky_color = Color(0, 0, 0, 1)
-shader_parameter/star_height = 10.0
-shader_parameter/hight = 1.0
-shader_parameter/noise = SubResource("NoiseTexture2D_7s4s3")
+shader_parameter/depth_plane = 4.1
+shader_parameter/star_size_parameter = 5.8
+shader_parameter/star_size_variation = 1.0
+shader_parameter/star_brightness_parameters = 0.9
+shader_parameter/smooth_horizon_parameter = 0.03
 
 [sub_resource type="Sky" id="Sky_e7xxa"]
 sky_material = SubResource("ShaderMaterial_x1yhg")
+process_mode = 1
 
 [sub_resource type="Environment" id="Environment_8jc82"]
 background_mode = 2

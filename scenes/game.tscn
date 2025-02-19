@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dvksxwjbv15cn"]
+[gd_scene load_steps=8 format=3 uid="uid://dvksxwjbv15cn"]
 
 [ext_resource type="PackedScene" uid="uid://bo134h43brsol" path="res://scenes/Entities/player.tscn" id="1_2ua3r"]
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_nki3u"]
 [ext_resource type="PackedScene" uid="uid://bn380b6mm0tpx" path="res://scenes/space.tscn" id="4_6sk1m"]
-[ext_resource type="Texture2D" uid="uid://beklhmhwrqy6y" path="res://models/UI/crosshair.png" id="4_eouho"]
 [ext_resource type="Script" path="res://scripts/Components/HealthComponent.cs" id="4_hy8th"]
 [ext_resource type="PackedScene" uid="uid://7x5c7s1g2y4a" path="res://locations/test_location.tscn" id="5_f5gjp"]
 [ext_resource type="PackedScene" uid="uid://dvglxmepjqnvs" path="res://scenes/UserInterface.tscn" id="7_pqv3b"]
@@ -20,6 +19,7 @@ script = ExtResource("1_nki3u")
 
 [node name="Player" parent="World" instance=ExtResource("1_2ua3r")]
 Health = SubResource("Resource_kgbas")
+TiltUpperLimit = -45.0
 MinimumHeight = 1.0
 
 [node name="Space" parent="World" instance=ExtResource("4_6sk1m")]
@@ -34,17 +34,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-
-[node name="Crosshair" type="TextureRect" parent="UI"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_eouho")
 
 [node name="UserInterface" parent="." instance=ExtResource("7_pqv3b")]
 mouse_filter = 2

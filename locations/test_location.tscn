@@ -1,7 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://7x5c7s1g2y4a"]
+[gd_scene load_steps=5 format=3 uid="uid://7x5c7s1g2y4a"]
 
 [ext_resource type="PackedScene" uid="uid://cedkht88122qr" path="res://models/celestial_bodies/roc1.gltf" id="1_sj0hq"]
 [ext_resource type="PackedScene" uid="uid://bw3chae8hbm8e" path="res://models/celestial_bodies/roc2.gltf" id="2_2gwex"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_thjcd"]
+albedo_color = Color(1, 1, 0.341176, 1)
+emission_enabled = true
+emission = Color(0.887576, 0.749813, 0.0946503, 1)
+emission_energy_multiplier = 11.43
+
+[sub_resource type="SphereMesh" id="SphereMesh_nankr"]
+material = SubResource("StandardMaterial3D_thjcd")
+radius = 100.0
+height = 200.0
 
 [node name="test_location" type="Node3D"]
 
@@ -22,3 +33,9 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 
 
 [node name="roc6" parent="." instance=ExtResource("2_2gwex")]
 transform = Transform3D(0.280619, -0.479356, 0.831547, 0.442028, 0.833559, 0.331347, -0.851977, 0.274585, 0.445801, -28.7921, 0, -36.5903)
+
+[node name="star" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="star"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.508, 0.158, -300)
+mesh = SubResource("SphereMesh_nankr")
