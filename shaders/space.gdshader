@@ -59,18 +59,6 @@ void sky() {
 				COLOR += Star(uv_plane + star_position_offset - offset, star_brightness)*star_size*smooth_horizon;
 			}
 			
-			//if(color_parameter > 0.4 && color_parameter <= 0.7){
-				//COLOR.rb += Star(uv_plane + star_position_offset - offset, star_brightness)*star_size*smooth_horizon;
-			//}
-			//
-			//if(color_parameter > 0.7 && color_parameter <= 1.0){
-				//COLOR.gb += Star(uv_plane + star_position_offset - offset, star_brightness)*star_size*smooth_horizon;
-			//}
-			////if(color_parameter > 0.9 && color_parameter <= 1.0){
-				////COLOR.b += 0.01;
-				//COLOR.gr += Star(uv_plane + star_position_offset - offset, star_brightness)*star_size*smooth_horizon;
-			//}
-			
 		}
 	}
 }

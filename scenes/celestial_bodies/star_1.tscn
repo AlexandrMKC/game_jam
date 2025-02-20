@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmenesqvosnla"]
+
+[ext_resource type="Shader" path="res://shaders/star.gdshader" id="1_dt6mn"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_updjd"]
+radius = 10.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tat7t"]
+render_priority = 0
+shader = ExtResource("1_dt6mn")
+shader_parameter/number_cell = 100.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_eu34h"]
+material = SubResource("ShaderMaterial_tat7t")
+radius = 50.0
+height = 100.0
+
+[node name="Star1" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("SphereShape3D_updjd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("SphereMesh_eu34h")
+skeleton = NodePath("../CollisionShape3D")
