@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuopti1x0t08k"]
+
+[ext_resource type="Shader" path="res://shaders/star_sky.gdshader" id="1_bkcon"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2e0y6"]
+shader = ExtResource("1_bkcon")
+shader_parameter/space_color = Color(0, 0, 0, 1)
+shader_parameter/grid_parameter = 20.0
+shader_parameter/star_size_parameter = 1.0
+shader_parameter/star_size_variation = 1.0
+shader_parameter/star_brightness_parameters = 0.0
+
+[node name="Space" type="ColorRect"]
+material = SubResource("ShaderMaterial_2e0y6")
+offset_right = 2000.0
+offset_bottom = 2000.0

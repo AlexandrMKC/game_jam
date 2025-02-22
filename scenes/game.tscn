@@ -1,39 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://dvksxwjbv15cn"]
+[gd_scene load_steps=3 format=3 uid="uid://criveyhfuxpw7"]
 
-[ext_resource type="PackedScene" uid="uid://bo134h43brsol" path="res://scenes/Entities/player.tscn" id="1_2ua3r"]
-[ext_resource type="Script" path="res://scripts/Game.cs" id="1_nki3u"]
-[ext_resource type="PackedScene" uid="uid://bn380b6mm0tpx" path="res://scenes/space.tscn" id="4_6sk1m"]
-[ext_resource type="Script" path="res://scripts/Components/HealthComponent.cs" id="4_hy8th"]
-[ext_resource type="PackedScene" uid="uid://7x5c7s1g2y4a" path="res://locations/test_location.tscn" id="5_f5gjp"]
-[ext_resource type="PackedScene" uid="uid://dvglxmepjqnvs" path="res://scenes/UserInterface.tscn" id="7_pqv3b"]
+[ext_resource type="PackedScene" uid="uid://byl4rn5ku07fu" path="res://locations/start_location.tscn" id="1_awrcw"]
+[ext_resource type="PackedScene" uid="uid://c5o1netthsqmg" path="res://scenes/player.tscn" id="1_j7syh"]
 
-[sub_resource type="Resource" id="Resource_kgbas"]
-resource_local_to_scene = true
-script = ExtResource("4_hy8th")
-TotalHealth = 200.0
+[node name="Game" type="Node2D"]
 
-[node name="Game" type="Node3D"]
-script = ExtResource("1_nki3u")
+[node name="world" type="Node2D" parent="."]
 
-[node name="World" type="Node3D" parent="."]
+[node name="StartLocation" parent="world" instance=ExtResource("1_awrcw")]
 
-[node name="Player" parent="World" instance=ExtResource("1_2ua3r")]
-Health = SubResource("Resource_kgbas")
-TiltUpperLimit = -45.0
-MinimumHeight = 1.0
-
-[node name="Space" parent="World" instance=ExtResource("4_6sk1m")]
-
-[node name="test_location" parent="World" instance=ExtResource("5_f5gjp")]
-
-[node name="UI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="UserInterface" parent="." instance=ExtResource("7_pqv3b")]
-mouse_filter = 2
+[node name="Player" parent="world" instance=ExtResource("1_j7syh")]
+speedFly = 200.0

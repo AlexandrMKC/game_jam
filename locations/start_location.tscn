@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://byl4rn5ku07fu"]
+
+[ext_resource type="Shader" path="res://shaders/star_sky.gdshader" id="1_l0tyi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6efhn"]
+shader = ExtResource("1_l0tyi")
+shader_parameter/space_color = Color(0.0902371, 0.142881, 0.160132, 1)
+shader_parameter/grid_parameter = 200.0
+shader_parameter/star_size_parameter = 1.0
+shader_parameter/star_size_variation = 1.0
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/star_brightness_parameters = 0.0
+
+[node name="StartLocation" type="Node2D"]
+
+[node name="space_0_0" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6efhn")
+offset_left = -10000.0
+offset_top = -10000.0
+offset_right = 10000.0
+offset_bottom = 10000.0
