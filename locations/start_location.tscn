@@ -1,15 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://byl4rn5ku07fu"]
+[gd_scene load_steps=7 format=3 uid="uid://byl4rn5ku07fu"]
 
 [ext_resource type="Shader" path="res://shaders/star_sky.gdshader" id="1_l0tyi"]
+[ext_resource type="PackedScene" uid="uid://cg5l347mapddl" path="res://scenes/celestial_bodies/meteorite.tscn" id="2_4sr34"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6efhn"]
 shader = ExtResource("1_l0tyi")
-shader_parameter/space_color = Color(0.0902371, 0.142881, 0.160132, 1)
+shader_parameter/space_color = Color(0.154703, 0.229732, 0.254337, 1)
 shader_parameter/grid_parameter = 200.0
 shader_parameter/star_size_parameter = 1.0
 shader_parameter/star_size_variation = 1.0
 shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/star_brightness_parameters = 0.0
+
+[sub_resource type="Gradient" id="Gradient_ttbym"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_myenw"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hty65"]
+color_ramp = SubResource("Gradient_ttbym")
+noise = SubResource("FastNoiseLite_myenw")
 
 [node name="StartLocation" type="Node2D"]
 
@@ -19,3 +28,12 @@ offset_left = -10000.0
 offset_top = -10000.0
 offset_right = 10000.0
 offset_bottom = 10000.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(65, -118)
+scale = Vector2(9.73047, 8.39063)
+energy = 1.21
+texture = SubResource("NoiseTexture2D_hty65")
+
+[node name="Meteorite" parent="." instance=ExtResource("2_4sr34")]
+position = Vector2(1000, 0)

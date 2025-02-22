@@ -11,13 +11,10 @@ position = Vector2(60, 49)
 script = ExtResource("1_hm7dm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(65.5, 55.25)
 shape = SubResource("RectangleShape2D_bxsth")
 
 [node name="Player" type="Sprite2D" parent="."]
-position = Vector2(64.25, 60.25)
 scale = Vector2(0.31875, 0.285417)
 texture = ExtResource("1_0r16t")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(64, 68)

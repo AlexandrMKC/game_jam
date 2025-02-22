@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cg5l347mapddl"]
+
+[ext_resource type="Texture2D" uid="uid://capy7h2voq8rj" path="res://models/celestial_bodies/meteorite.png" id="1_6hjfy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_31c8r"]
+radius = 349.12
+
+[node name="Meteorite" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_31c8r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_6hjfy")

@@ -10,4 +10,4 @@
 [node name="StartLocation" parent="world" instance=ExtResource("1_awrcw")]
 
 [node name="Player" parent="world" instance=ExtResource("1_j7syh")]
-speedFly = 200.0
+speedFly = 400.0
