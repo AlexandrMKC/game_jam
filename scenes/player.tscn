@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5o1netthsqmg"]
+[gd_scene load_steps=5 format=3 uid="uid://c5o1netthsqmg"]
 
 [ext_resource type="Texture2D" uid="uid://cr20qtajor2um" path="res://models/player/player.png" id="1_0r16t"]
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_hm7dm"]
+[ext_resource type="Script" path="res://scripts/StateMachine/StateMachine.cs" id="3_2twyl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bxsth"]
 size = Vector2(105, 107.5)
@@ -18,3 +19,6 @@ scale = Vector2(0.31875, 0.285417)
 texture = ExtResource("1_0r16t")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_2twyl")
