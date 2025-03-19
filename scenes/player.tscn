@@ -1,15 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5o1netthsqmg"]
+[gd_scene load_steps=8 format=3 uid="uid://c5o1netthsqmg"]
 
 [ext_resource type="Texture2D" uid="uid://cr20qtajor2um" path="res://models/player/player.png" id="1_0r16t"]
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_hm7dm"]
 [ext_resource type="Script" path="res://scripts/StateMachine/StateMachine.cs" id="3_2twyl"]
+[ext_resource type="Script" path="res://scripts/StateMachine/MoveState.cs" id="4_io8vq"]
+[ext_resource type="Script" path="res://scripts/StateMachine/IdleState.cs" id="5_sw0j7"]
+[ext_resource type="Script" path="res://scripts/StateMachine/Transition.cs" id="6_y3bvi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bxsth"]
 size = Vector2(105, 107.5)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("stateMachine")]
 position = Vector2(60, 49)
 script = ExtResource("1_hm7dm")
+stateMachine = NodePath("StateMachine")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_bxsth")
@@ -20,5 +24,21 @@ texture = ExtResource("1_0r16t")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("startState")]
 script = ExtResource("3_2twyl")
+startState = NodePath("IdleState")
+
+[node name="MoveState" type="Node" parent="StateMachine" node_paths=PackedStringArray("_player")]
+script = ExtResource("4_io8vq")
+_player = NodePath("../..")
+_speedFly = 400.0
+stateName = "move"
+
+[node name="IdleState" type="Node" parent="StateMachine"]
+script = ExtResource("5_sw0j7")
+stateName = "idle"
+
+[node name="TransitionToMoveState" type="Node" parent="StateMachine/IdleState" node_paths=PackedStringArray("toNewState")]
+script = ExtResource("6_y3bvi")
+toNewState = NodePath("../../MoveState")
+nameEvent = "move"

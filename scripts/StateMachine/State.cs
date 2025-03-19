@@ -1,26 +1,61 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 [GlobalClass]
 public partial class State : Node
 {
-	public string name;
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	[Signal]
+	public delegate void StateEnteredEventHandler();
+
+	[Signal]
+	public delegate void StateExitedEventHandler();
+
+	// [Signal]
+	// public delegate void TransitionEventHandler(State currentState, State newState);
+
+	[Export]
+	public string stateName;
+
+	// array of Transition objects
+	private Array<Transition> _transitions = new Array<Transition>();
+
+	public void InitState(){
+
+		// set up transitions
+		_transitions.Clear();
+		foreach(var child in GetChildren()){
+			if(child is Transition){
+				var transition = (Transition)child;
+				_transitions.Add(transition);
+			}
+		}
 	}
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _PhysicsProcess(double delta)
-    {
-        
-    }
+	public State ProcessTransition(string nameEvent){
+		// check all transitions
+		foreach(var transition in _transitions){
+			if(transition.ComperedEvents(nameEvent)){
+				return transition.toNewState;
+			}
+		}
 
-    public void Enter(){
+		return null;
+	}
+
+	virtual public void PhysicsUpdate(double delta){
 
 	}
 
-	public void Exit(){
+	virtual public void Update(double delta){
+		
+	}
+
+    virtual public void Enter(){
+
+	}
+
+	virtual public void Exit(){
 
 	}
 }

@@ -8,6 +8,7 @@
 [node name="world" type="Node2D" parent="."]
 
 [node name="StartLocation" parent="world" instance=ExtResource("1_awrcw")]
+position = Vector2(67, -121)
 
 [node name="Player" parent="world" instance=ExtResource("1_j7syh")]
 speedFly = 400.0
